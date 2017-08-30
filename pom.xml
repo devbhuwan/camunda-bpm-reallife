@@ -82,6 +82,11 @@
                 <artifactId>compile-testing</artifactId>
                 <version>0.8</version>
             </dependency>
+            <dependency>
+                <groupId>com.squareup</groupId>
+                <artifactId>javapoet</artifactId>
+                <version>1.9.0</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -105,7 +110,10 @@
             <artifactId>assertj-core</artifactId>
             <scope>test</scope>
         </dependency>
-
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+        </dependency>
     </dependencies>
 
 </project>
