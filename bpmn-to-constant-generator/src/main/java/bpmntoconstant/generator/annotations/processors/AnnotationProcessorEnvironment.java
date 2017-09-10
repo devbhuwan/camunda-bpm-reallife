@@ -1,6 +1,7 @@
 package bpmntoconstant.generator.annotations.processors;
 
 import lombok.Getter;
+import org.apache.commons.lang3.StringUtils;
 
 import static java.io.File.separator;
 
@@ -27,7 +28,8 @@ class AnnotationProcessorEnvironment {
     }
 
     private String projectRootDirectory() {
-        return System.getProperty("user.dir");
+        String projectDirectory = System.getProperty("bpmn.metadata.project.basedir");
+        return StringUtils.isNotBlank(projectDirectory) ? projectDirectory : System.getProperty("user.dir");
     }
 
     private String buildResourcesDirectory(String typeDir) {
