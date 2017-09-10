@@ -1,4 +1,4 @@
-package bpmntoconstant.generator.annotations.processors.util;
+package bpmntoconstant.generator.annotations.processors;
 
 import org.springframework.core.io.Resource;
 import org.springframework.util.Assert;
@@ -8,10 +8,8 @@ import javax.lang.model.element.Element;
 /**
  * @author Bhuwan Prasad Upadhyay
  */
-public class JavaSourceFileHelper {
+class JavaSourceFileHelper {
 
-    public static final String BPMN_METADATA_ANNOTATION_MODE = "BPMN_METADATA_ANNOTATION_MODE";
-    public static final String TEST_MODE = "TEST";
     private JavaSourceFileHelper() {
         //no-arg constructor
     }
@@ -44,11 +42,4 @@ public class JavaSourceFileHelper {
         return javaFileName.toString();
     }
 
-    private static boolean isTestMode() {
-        return TEST_MODE.equals(System.getProperty(BPMN_METADATA_ANNOTATION_MODE));
-    }
-
-    public static String getDefaultLocation() {
-        return isTestMode() ? "classpath*:**/*.bpmn" : "file:./src/main/**/*.bpmn";
-    }
 }

@@ -1,4 +1,4 @@
-package bpmntoconstant.generator.annotations.processors.util;
+package bpmntoconstant.generator.annotations.processors;
 
 import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.TypeName;
@@ -16,7 +16,7 @@ import java.util.Set;
 /**
  * @author Bhuwan Prasad Upadhyay
  */
-public class MetadataSpecHelper {
+class MetadataSpecHelper {
 
     private MetadataSpecHelper() {
         //no-arg constructor
