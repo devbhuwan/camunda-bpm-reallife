@@ -10,24 +10,26 @@ import javax.lang.model.element.Element;
  */
 public class JavaSourceFileHelper {
 
-
     public static final String BPMN_METADATA_ANNOTATION_MODE = "BPMN_METADATA_ANNOTATION_MODE";
     public static final String TEST_MODE = "TEST";
+    private JavaSourceFileHelper() {
+        //no-arg constructor
+    }
 
     public static String buildPackageName(Element rootElement) {
         final String elementQualifiedName = rootElement.asType().toString();
         Assert.notNull(elementQualifiedName, "elementQualifiedName must be not null");
-        int lastIndexOf = elementQualifiedName.lastIndexOf(".");
+        int lastIndexOf = elementQualifiedName.lastIndexOf('.');
         String packageName = "bpmn.metadata";
         if (lastIndexOf > 0)
-            packageName = elementQualifiedName.substring(0, lastIndexOf) + "." + packageName;
+            packageName = elementQualifiedName.substring(0, lastIndexOf) + '.' + packageName;
         Assert.notNull(packageName, "packageName must be not null");
         return packageName;
     }
 
     public static String buildClassName(Resource resource) {
         String filename = resource.getFilename();
-        int lastIndexOf = filename.lastIndexOf(".");
+        int lastIndexOf = filename.lastIndexOf('.');
         if (lastIndexOf > 0)
             filename = filename.substring(0, lastIndexOf);
         return convertToJavaClassNameConvention(filename) + "Constants";

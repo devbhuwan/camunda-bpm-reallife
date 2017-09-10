@@ -3,6 +3,7 @@ package bpmntoconstant.generator.annotations.processors.util;
 import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
+import org.apache.commons.lang3.StringUtils;
 import org.camunda.bpm.model.bpmn.instance.ExtensionElements;
 import org.camunda.bpm.model.bpmn.instance.FlowNode;
 import org.camunda.bpm.model.bpmn.instance.camunda.CamundaFormData;
@@ -17,6 +18,9 @@ import java.util.Set;
  */
 public class MetadataSpecHelper {
 
+    private MetadataSpecHelper() {
+        //no-arg constructor
+    }
 
     public static TypeSpec.Builder innerClassSpec(String className) {
         return TypeSpec.classBuilder(className).addModifiers(Modifier.PUBLIC, Modifier.STATIC);
@@ -44,19 +48,22 @@ public class MetadataSpecHelper {
     private static void byCamundaFormData(Set<String> variableKeys, ExtensionElements extensionElements) {
         extensionElements.getElementsQuery().filterByType(CamundaFormData.class)
                 .list().forEach(camundaFormData -> camundaFormData.getCamundaFormFields()
-                .forEach(camundaFormField -> variableKeys.add(camundaFormField.getCamundaId())));
+                .forEach(camundaFormField -> addNonEmptyVariableKey(variableKeys, camundaFormField.getCamundaId())));
     }
 
     private static void byCamundaInputOutput(Set<String> variableKeys, ExtensionElements extensionElements) {
         extensionElements.getElementsQuery().filterByType(CamundaInputOutput.class)
                 .list().forEach(camundaInputOutput -> {
-            camundaInputOutput.getCamundaInputParameters().forEach(camundaInputParameter -> {
-                variableKeys.add(camundaInputParameter.getCamundaName());
-            });
-            camundaInputOutput.getCamundaOutputParameters().forEach(camundaOutputParameter -> {
-                variableKeys.add(camundaOutputParameter.getCamundaName());
-            });
+            camundaInputOutput.getCamundaInputParameters()
+                    .forEach(camundaInputParameter -> addNonEmptyVariableKey(variableKeys, camundaInputParameter.getCamundaName()));
+            camundaInputOutput.getCamundaOutputParameters()
+                    .forEach(camundaOutputParameter -> addNonEmptyVariableKey(variableKeys, camundaOutputParameter.getCamundaName()));
         });
     }
-    
+
+    private static void addNonEmptyVariableKey(Set<String> variableKeys, String varKey) {
+        if (StringUtils.isNotBlank(varKey))
+            variableKeys.add(varKey);
+    }
+
 }

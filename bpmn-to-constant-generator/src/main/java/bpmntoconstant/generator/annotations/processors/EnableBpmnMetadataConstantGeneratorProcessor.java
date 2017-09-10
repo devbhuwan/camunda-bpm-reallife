@@ -1,6 +1,7 @@
-package bpmntoconstant.generator.annotations.processors.util;
+package bpmntoconstant.generator.annotations.processors;
 
 import bpmntoconstant.generator.annotations.EnableBpmnMetadataConstantGenerator;
+import bpmntoconstant.generator.annotations.processors.util.JavaSourceFileHelper;
 import com.google.auto.service.AutoService;
 import com.google.common.base.Throwables;
 import com.squareup.javapoet.JavaFile;
@@ -8,6 +9,7 @@ import com.squareup.javapoet.TypeSpec;
 import org.camunda.bpm.model.bpmn.Bpmn;
 import org.camunda.bpm.model.bpmn.BpmnModelInstance;
 import org.camunda.bpm.model.bpmn.instance.*;
+import org.camunda.bpm.model.bpmn.instance.Error;
 import org.camunda.bpm.model.bpmn.instance.Process;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
@@ -80,10 +82,7 @@ public class EnableBpmnMetadataConstantGeneratorProcessor extends AbstractProces
             TypeSpec.Builder idsClassSpec = innerClassSpec("Ids");
             TypeSpec.Builder variableKeysClassSpec = innerClassSpec("VariableKeys");
 
-            collectsByProcess(bpmnModelInstance.getModelElementsByType(Process.class));
-            collectsByNode(bpmnModelInstance.getModelElementsByType(Event.class));
-            collectsByNode(bpmnModelInstance.getModelElementsByType(Task.class));
-            collectsByFLow(bpmnModelInstance.getModelElementsByType(SequenceFlow.class));
+            collects(bpmnModelInstance);
 
             idVariableKeysMap.get(IDS)
                     .forEach(key -> idsClassSpec.addField(fieldSpec(key)));
@@ -103,22 +102,46 @@ public class EnableBpmnMetadataConstantGeneratorProcessor extends AbstractProces
         }
     }
 
+    private void collects(BpmnModelInstance bpmnModelInstance) {
+        collectsByProcess(bpmnModelInstance.getModelElementsByType(Process.class));
+        collectsByNode(bpmnModelInstance.getModelElementsByType(Event.class));
+        collectsByNode(bpmnModelInstance.getModelElementsByType(Task.class));
+        collectsByNode(bpmnModelInstance.getModelElementsByType(CallActivity.class));
+        collectsByNode(bpmnModelInstance.getModelElementsByType(SubProcess.class));
+        collectsByFLow(bpmnModelInstance.getModelElementsByType(SequenceFlow.class));
+        collectsByError(bpmnModelInstance.getModelElementsByType(org.camunda.bpm.model.bpmn.instance.Error.class));
+        collectsByMessage(bpmnModelInstance.getModelElementsByType(Message.class));
+    }
+
+    private void collectsByMessage(Collection<Message> elements) {
+        elements.forEach(node -> addNonEmptyId(node.getId()));
+    }
+
+    private void collectsByError(Iterable<Error> elements) {
+        elements.forEach(node -> addNonEmptyId(node.getId()));
+    }
+
 
     private void collectsByProcess(Collection<Process> elements) {
-        elements.forEach(node -> idVariableKeysMap.get(IDS).add(node.getId()));
+        elements.forEach(node -> addNonEmptyId(node.getId()));
+    }
+
+    private void addNonEmptyId(String id) {
+        if (org.apache.commons.lang3.StringUtils.isNotBlank(id))
+            idVariableKeysMap.get(IDS).add(id);
     }
 
 
     private void collectsByNode(Collection<? extends FlowNode> elements) {
         elements.forEach(node -> {
-            idVariableKeysMap.get(IDS).add(node.getId());
+            addNonEmptyId(node.getId());
             idVariableKeysMap.get(VARIABLE_KEYS).addAll(variableKeys(node));
         });
     }
 
     private void collectsByFLow(Collection<SequenceFlow> elements) {
         elements.forEach(node -> {
-            idVariableKeysMap.get(IDS).add(node.getId());
+            addNonEmptyId(node.getId());
             idVariableKeysMap.get(VARIABLE_KEYS).addAll(variableKeys(node.getSource()));
             idVariableKeysMap.get(VARIABLE_KEYS).addAll(variableKeys(node.getTarget()));
         });
