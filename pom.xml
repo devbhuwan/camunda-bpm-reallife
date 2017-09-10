@@ -10,6 +10,7 @@
         <module>bpmn-to-constant-generator</module>
         <module>camunda-bpm-decorator</module>
         <module>order-service</module>
+        <module>payment-service</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -86,6 +87,11 @@
                 <groupId>com.squareup</groupId>
                 <artifactId>javapoet</artifactId>
                 <version>1.9.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.camunda.bpm.model</groupId>
+                <artifactId>camunda-bpmn-model</artifactId>
+                <version>7.7.0</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

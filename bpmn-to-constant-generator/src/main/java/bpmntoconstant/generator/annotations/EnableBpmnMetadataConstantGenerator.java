@@ -10,6 +10,6 @@ import java.lang.annotation.*;
 @Documented
 @Retention(RetentionPolicy.CLASS)
 @Target(ElementType.TYPE)
-public @interface EnableBpmnMetaDataConstantGenerator {
+public @interface EnableBpmnMetadataConstantGenerator {
 
 }

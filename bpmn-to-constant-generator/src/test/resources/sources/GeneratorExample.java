@@ -1,13 +1,13 @@
 package sources;
 
-import bpmntoconstant.generator.annotations.EnableBpmnMetaDataConstantGenerator;
+import bpmntoconstant.generator.annotations.EnableBpmnMetadataConstantGenerator;
 
 /**
  * <p> </p>
  *
  * @author Bhuwan Prasad Upadhyay
  */
-@EnableBpmnMetaDataConstantGenerator
+@EnableBpmnMetadataConstantGenerator
 public class GeneratorExample {
 
 }

@@ -1,0 +1,2 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  camunda.bpm.decorator.CamundaBpmDecoratorAutoConfiguration
