@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="1.9.0">
-  <bpmn:process id="Process_1" isExecutable="true">
-    <bpmn:startEvent id="StartEvent_1">
+  <bpmn:process id="ORDER_PROCESS" isExecutable="true">
+    <bpmn:startEvent id="START_ORDER_EVENT">
       <bpmn:outgoing>SequenceFlow_1syum8t</bpmn:outgoing>
     </bpmn:startEvent>
     <bpmn:task id="Task_1hsiu07">
       <bpmn:incoming>SequenceFlow_1syum8t</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0flf7v5</bpmn:outgoing>
     </bpmn:task>
-    <bpmn:sequenceFlow id="SequenceFlow_1syum8t" sourceRef="StartEvent_1" targetRef="Task_1hsiu07" />
+    <bpmn:sequenceFlow id="SequenceFlow_1syum8t" sourceRef="START_ORDER_EVENT" targetRef="Task_1hsiu07" />
     <bpmn:endEvent id="EndEvent_0plntwn">
       <bpmn:incoming>SequenceFlow_0flf7v5</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="SequenceFlow_0flf7v5" sourceRef="Task_1hsiu07" targetRef="EndEvent_0plntwn" />
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
-    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1">
-      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="ORDER_PROCESS">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="START_ORDER_EVENT">
         <dc:Bounds x="194" y="189" width="36" height="36" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="167" y="225" width="90" height="20" />
