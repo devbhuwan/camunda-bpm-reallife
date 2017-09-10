@@ -43,12 +43,12 @@ public class EnableBpmnMetadataConstantGeneratorProcessor extends AbstractProces
     private final PathMatchingResourcePatternResolver resourcePatternResolver = new PathMatchingResourcePatternResolver();
 
     private final Map<String, Set<String>> idVariableKeysMap = new HashMap<>();
-    private final AnnotationProcessor annotationProcessor;
+    private final AnnotationProcessorEnvironment annotationProcessorEnvironment;
 
     public EnableBpmnMetadataConstantGeneratorProcessor() {
         idVariableKeysMap.put(IDS, new TreeSet<>());
         idVariableKeysMap.put(VARIABLE_KEYS, new TreeSet<>());
-        this.annotationProcessor = new AnnotationProcessor();
+        this.annotationProcessorEnvironment = new AnnotationProcessorEnvironment();
     }
 
     @Override
@@ -65,11 +65,11 @@ public class EnableBpmnMetadataConstantGeneratorProcessor extends AbstractProces
                 Element element = iterator.next();
                 final String packageName = buildPackageName(element);
 
-                for (Resource resource : resourcePatternResolver.getResources(annotationProcessor.getSourceResourcesDirectory()))
-                    this.generateMetadataConstantSourceFile(annotationProcessor.getSourceGeneratedOutputDirectory(), packageName, resource);
+                for (Resource resource : resourcePatternResolver.getResources(annotationProcessorEnvironment.getSourceResourcesDirectory()))
+                    this.generateMetadataConstantSourceFile(annotationProcessorEnvironment.getSourceGeneratedOutputDirectory(), packageName, resource);
 
-                for (Resource resource : resourcePatternResolver.getResources(annotationProcessor.getTestSourceResourcesDirectory()))
-                    this.generateMetadataConstantSourceFile(annotationProcessor.getTestSourceGeneratedOutputDirectory(), packageName, resource);
+                for (Resource resource : resourcePatternResolver.getResources(annotationProcessorEnvironment.getTestSourceResourcesDirectory()))
+                    this.generateMetadataConstantSourceFile(annotationProcessorEnvironment.getTestSourceGeneratedOutputDirectory(), packageName, resource);
 
             }
         } catch (Exception ex) {

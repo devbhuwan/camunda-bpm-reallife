@@ -8,14 +8,14 @@ import static java.io.File.separator;
  * @author Bhuwan Prasad Upadhyay
  */
 @Getter
-class AnnotationProcessor {
+class AnnotationProcessorEnvironment {
 
     private String sourceGeneratedOutputDirectory;
     private String testSourceGeneratedOutputDirectory;
     private String sourceResourcesDirectory;
     private String testSourceResourcesDirectory;
 
-    public AnnotationProcessor() {
+    public AnnotationProcessorEnvironment() {
         this.testSourceResourcesDirectory = buildResourcesDirectory("test");
         this.sourceResourcesDirectory = buildResourcesDirectory("main");
         this.sourceGeneratedOutputDirectory = buildGeneratedOutputDirectory("generated-sources" + separator + "annotations");
