@@ -16,13 +16,20 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.cloud.stream.messaging.Processor;
+import org.springframework.cloud.stream.test.binder.MessageCollector;
+import org.springframework.messaging.Message;
+import org.springframework.messaging.support.GenericMessage;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.when;
 
 /**
  * @author Bhuwan Prasad Upadhyay
  */
+@SuppressWarnings("SpringJavaAutowiringInspection")
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = OrderServiceApplication.class,
         webEnvironment = SpringBootTest.WebEnvironment.NONE)
@@ -31,12 +38,17 @@ public class OrderProcessTest {
 
     @Mock
     private ProcessScenario orderProcess;
-    @SuppressWarnings("SpringJavaAutowiringInspection")
     @Autowired
     private ProcessEngine processEngine;
 
+    @Autowired
+    private Processor processor;
+
+    @Autowired
+    private MessageCollector messageCollector;
+
     @Before
-    public void setup() {
+    public void init() {
         MockitoAnnotations.initMocks(this);
     }
 
@@ -50,7 +62,16 @@ public class OrderProcessTest {
     }
 
     private ProcessStarter start() {
-        return () -> processEngine.getRuntimeService().startProcessInstanceByMessage(OrderProcessConstants.Ids.START_ORDER_EVENT);
+        return () -> processEngine.getRuntimeService().startProcessInstanceByKey(OrderProcessConstants.Ids.ORDER_PROCESS);
     }
+
+    @Test
+    public void testSendReceive() {
+        Message<String> message = new GenericMessage<>("hello");
+        processor.input().send(message);
+        Message<String> received = (Message<String>) messageCollector.forChannel(processor.output()).poll();
+        assertThat(received.getPayload(), equalTo("hello world"));
+    }
+
 
 }
