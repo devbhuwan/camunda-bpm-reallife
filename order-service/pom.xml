@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>camunda-bpm-reallife</artifactId>
@@ -12,11 +12,6 @@
     <artifactId>order-service</artifactId>
 
     <dependencies>
-        <dependency>
-            <groupId>io.github.devbhuwan</groupId>
-            <artifactId>event-channel</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
         <dependency>
             <groupId>io.github.devbhuwan</groupId>
             <artifactId>camunda-bpm-decorator</artifactId>
@@ -56,6 +51,19 @@
             <groupId>org.camunda.bpm.extension</groupId>
             <artifactId>camunda-bpm-process-test-coverage</artifactId>
             <version>0.3.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-stream</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-stream-binder-kafka</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-stream-binder-kafka-test-support</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>
