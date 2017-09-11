@@ -5,10 +5,7 @@ import org.camunda.bpm.engine.test.Deployment;
 import org.camunda.bpm.engine.test.ProcessEngineRule;
 import org.camunda.bpm.extension.process_test_coverage.junit.rules.TestCoverageProcessEngineRuleBuilder;
 import org.camunda.bpm.scenario.ProcessScenario;
-import org.junit.Before;
-import org.junit.ClassRule;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.*;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -21,6 +18,7 @@ import javax.annotation.PostConstruct;
 /**
  * @author Bhuwan Prasad Upadhyay
  */
+@Ignore
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = OrderServiceApplication.class, webEnvironment = SpringBootTest.WebEnvironment.NONE)
 @Deployment(resources = {"bpmn/ORDER_PROCESS.bpmn"})

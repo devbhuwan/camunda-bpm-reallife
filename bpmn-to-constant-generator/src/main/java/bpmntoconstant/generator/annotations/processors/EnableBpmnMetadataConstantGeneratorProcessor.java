@@ -46,9 +46,12 @@ public class EnableBpmnMetadataConstantGeneratorProcessor extends AbstractProces
     private final AnnotationProcessorEnvironment annotationProcessorEnvironment;
 
     public EnableBpmnMetadataConstantGeneratorProcessor() {
+        this.annotationProcessorEnvironment = new AnnotationProcessorEnvironment();
+    }
+
+    private void resetIdVariableKeysMap() {
         idVariableKeysMap.put(IDS, new TreeSet<>());
         idVariableKeysMap.put(VARIABLE_KEYS, new TreeSet<>());
-        this.annotationProcessorEnvironment = new AnnotationProcessorEnvironment();
     }
 
     @Override
@@ -82,6 +85,7 @@ public class EnableBpmnMetadataConstantGeneratorProcessor extends AbstractProces
 
     private void generateMetadataConstantSourceFile(String generatedOutputDirectory, String packageName, Resource resource) {
         try {
+            this.resetIdVariableKeysMap();
             BpmnModelInstance bpmnModelInstance = Bpmn.readModelFromFile(resource.getFile());
             TypeSpec.Builder classSpec = TypeSpec.classBuilder(buildClassName(resource))
                     .addModifiers(Modifier.PUBLIC);
