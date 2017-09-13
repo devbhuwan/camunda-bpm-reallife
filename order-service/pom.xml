@@ -23,6 +23,11 @@
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
+            <groupId>io.github.devbhuwan</groupId>
+            <artifactId>camunda-bpm-event-bus-connector</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
             <groupId>org.camunda.bpm.extension.springboot</groupId>
             <artifactId>camunda-bpm-spring-boot-starter-test</artifactId>
             <scope>test</scope>

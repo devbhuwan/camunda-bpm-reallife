@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.camunda.bpm.engine.ProcessEngineConfiguration;
 import org.camunda.bpm.engine.impl.bpmn.parser.BpmnParseListener;
 import org.camunda.bpm.engine.impl.cfg.ProcessEngineConfigurationImpl;
+import org.camunda.bpm.spring.boot.starter.configuration.impl.AbstractCamundaConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
@@ -18,21 +19,21 @@ import java.util.List;
 @Configuration
 @EnableConfigurationProperties(CamundaBpmDecoratorProperties.class)
 @Slf4j
-public class CamundaBpmDecoratorAutoConfiguration {
+public class CamundaBpmDecoratorAutoConfiguration extends AbstractCamundaConfiguration {
 
     @Autowired
     private CamundaBpmDecoratorProperties properties;
-    @SuppressWarnings("SpringJavaAutowiringInspection")
-    @Autowired
-    private ProcessEngineConfiguration processEngineConfiguration;
 
     @PostConstruct
     private void configure() {
-        log.info("AutoConfiguration [{0}]", CamundaBpmDecoratorAutoConfiguration.class.getSimpleName());
+        log.info("AutoConfiguration [{}]", CamundaBpmDecoratorAutoConfiguration.class.getSimpleName());
+
+    }
+
+    @Override
+    public void preInit(ProcessEngineConfigurationImpl processEngineConfiguration) {
         if (properties.isEnable()) {
-            List<BpmnParseListener> bpmnParseListeners = new ArrayList<>();
-            bpmnParseListeners.add(new TaskParseListener());
-            ((ProcessEngineConfigurationImpl) processEngineConfiguration).setCustomPreBPMNParseListeners(bpmnParseListeners);
+            CamundaBpmDecoratorConfigurator.initializeBpmDecoratorExtensions(processEngineConfiguration);
         }
     }
 }
