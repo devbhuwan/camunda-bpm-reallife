@@ -1,5 +1,6 @@
 package camunda.event.bus.connector;
 
+import event.channel.contracts.EventChanelContext;
 import org.camunda.bpm.engine.impl.bpmn.parser.BpmnParseListener;
 import org.camunda.bpm.engine.impl.cfg.ProcessEngineConfigurationImpl;
 
@@ -9,11 +10,11 @@ import java.util.List;
 /**
  * @author Bhuwan Prasad Upadhyay
  */
-public class CamundaEventBusConnectorConfigurator {
+class CamundaEventBusConnectorConfigurator {
 
-    public static void initializeEventBusConnectorExtensions(ProcessEngineConfigurationImpl configuration) {
+    static void initializeEventBusConnectorExtensions(ProcessEngineConfigurationImpl configuration, EventChanelContext eventChanelContext) {
         List<BpmnParseListener> bpmnParseListeners = new ArrayList<>();
-        bpmnParseListeners.add(new StartEventParseListener());
+        bpmnParseListeners.add(new StartEventParseListener(eventChanelContext));
         configuration.setCustomPreBPMNParseListeners(bpmnParseListeners);
     }
 

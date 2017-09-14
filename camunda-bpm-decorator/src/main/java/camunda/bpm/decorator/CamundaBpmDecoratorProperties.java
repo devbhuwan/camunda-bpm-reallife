@@ -15,5 +15,5 @@ import org.springframework.validation.annotation.Validated;
 public class CamundaBpmDecoratorProperties {
 
     public static final String CAMUNDA_BPM_DECORATOR_PREFIX = "camunda.bpm.decorator";
-    private boolean enable;
+    private boolean enable = Boolean.TRUE;
 }

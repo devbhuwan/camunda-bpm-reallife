@@ -12,8 +12,8 @@ import org.springframework.validation.annotation.Validated;
 @Validated
 @Getter
 @Setter
-public class CamundaBpmEventBusConnectorProperties {
+class CamundaBpmEventBusConnectorProperties {
 
     public static final String PREFIX = "camunda.bpm.event.bus.connector";
-    private boolean enable;
+    private boolean enable = Boolean.TRUE;
 }

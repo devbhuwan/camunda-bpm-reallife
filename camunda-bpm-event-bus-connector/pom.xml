@@ -21,6 +21,11 @@
             <artifactId>bpmn-to-constant-generator</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>io.github.devbhuwan</groupId>
+            <artifactId>event-channel</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
 
