@@ -12,9 +12,21 @@
     <artifactId>event-channel</artifactId>
 
     <dependencies>
+
+        <dependency>
+            <groupId>org.stuartgunter</groupId>
+            <artifactId>spring-beans</artifactId>
+            <version>1.0.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-stream</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-stream-test-support</artifactId>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
