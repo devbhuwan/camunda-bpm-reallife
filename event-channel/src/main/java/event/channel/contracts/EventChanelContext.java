@@ -5,5 +5,5 @@ package event.channel.contracts;
  */
 public interface EventChanelContext {
 
-    void registerListener();
+    void registerListener(EventListenerSpec eventListenerSpec);
 }

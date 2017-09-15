@@ -24,7 +24,7 @@ class StartEventParseListener extends AbstractBpmnParseListener {
     @Override
     public void parseStartEvent(Element startEventElement, ScopeImpl scope, ActivityImpl startEventActivity) {
         log.info("Start Event");
-        eventChanelContext.registerListener();
+        //eventChanelContext.registerListener();
     }
 
 

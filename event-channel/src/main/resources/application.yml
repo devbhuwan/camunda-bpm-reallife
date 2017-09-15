@@ -1,0 +1,3 @@
+event:
+  channel:
+    type: spring-cloud-stream|direct-kafka|direct-rabbit

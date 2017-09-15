@@ -42,6 +42,6 @@ public class CamundaBpmEventBusConnectorAutoConfiguration extends AbstractCamund
     public void preInit(ProcessEngineConfigurationImpl processEngineConfiguration) {
         log.info("CamundaBpmEventBusConnectorAutoConfiguration #preInit() is {}", properties.isEnable());
         if (properties.isEnable())
-            CamundaEventBusConnectorConfigurator.initializeEventBusConnectorExtensions(processEngineConfiguration);
+            CamundaEventBusConnectorConfigurator.initializeEventBusConnectorExtensions(processEngineConfiguration, eventChanelContext);
     }
 }
