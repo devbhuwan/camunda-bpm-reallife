@@ -6,7 +6,7 @@
     <artifactId>camunda-bpm-reallife</artifactId>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>event-channel</module>
+        <module>camunda-event-channel</module>
         <module>bpmn-to-constant-generator</module>
         <module>camunda-bpm-decorator</module>
         <module>order-service</module>

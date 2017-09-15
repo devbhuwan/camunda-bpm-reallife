@@ -10,6 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.cloud.stream.messaging.Sink;
 import org.springframework.cloud.stream.test.binder.MessageCollector;
 import org.springframework.messaging.support.GenericMessage;
+import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
@@ -20,7 +21,6 @@ public class SpringCloudStreamEventChanelContextImplTest {
 
     @Autowired
     private EventChanelContext eventChanelContext;
-
     @Autowired
     private Sink sink;
     @Autowired
@@ -31,6 +31,6 @@ public class SpringCloudStreamEventChanelContextImplTest {
         eventChanelContext.registerListener(ImmutableEventListenerSpec.builder()
                 .message(START_EVENT_MESSAGE)
                 .build());
-        this.sink.input().send(new GenericMessage<>("Hello"));
+        this.sink.input().send(MessageBuilder.withPayload());
     }
 }
