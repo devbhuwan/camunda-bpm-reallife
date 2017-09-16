@@ -27,6 +27,7 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <camunda.spring.boot.version>2.2.0</camunda.spring.boot.version>
         <auto-service.version>1.0-rc3</auto-service.version>
+        <docker.image.prefix>devbhuwan</docker.image.prefix>
     </properties>
 
     <dependencyManagement>
@@ -103,6 +104,16 @@
                 <groupId>commons-logging</groupId>
                 <artifactId>commons-logging</artifactId>
                 <version>1.2</version>
+            </dependency>
+            <dependency>
+                <groupId>io.github.devbhuwan</groupId>
+                <artifactId>camunda-bpm-decorator</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>io.github.devbhuwan</groupId>
+                <artifactId>camunda-bpm-event-bus-connector</artifactId>
+                <version>1.0-SNAPSHOT</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -210,6 +221,14 @@
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>dockerfile-maven-plugin</artifactId>
+                <version>1.3.4</version>
+                <configuration>
+                    <repository>${docker.image.prefix}/${project.artifactId}</repository>
+                </configuration>
             </plugin>
         </plugins>
     </build>
