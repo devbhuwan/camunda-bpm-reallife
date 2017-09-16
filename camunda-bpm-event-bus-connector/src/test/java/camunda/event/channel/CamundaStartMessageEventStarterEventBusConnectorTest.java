@@ -39,5 +39,6 @@ public class CamundaStartMessageEventStarterEventBusConnectorTest {
                 .processDefinitionId("ORDER_PROCESS")
                 .build());
         this.sink.input().send(startEventMessageBuilder.build());
+
     }
 }
