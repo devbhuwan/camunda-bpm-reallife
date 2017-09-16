@@ -1,4 +1,4 @@
-package event.channel.contracts;
+package camunda.event.channel.contracts;
 
 import org.immutables.value.Value;
 
@@ -9,5 +9,7 @@ import org.immutables.value.Value;
 public interface EventListenerSpec {
 
     String message();
+
+    Object handleEventBean();
 
 }

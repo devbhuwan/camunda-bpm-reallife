@@ -1,6 +1,6 @@
 package camunda.event.bus.connector;
 
-import event.channel.contracts.EventChanelContext;
+import camunda.event.channel.contracts.EventChanelContext;
 import org.camunda.bpm.engine.impl.bpmn.parser.BpmnParseListener;
 import org.camunda.bpm.engine.impl.cfg.ProcessEngineConfigurationImpl;
 

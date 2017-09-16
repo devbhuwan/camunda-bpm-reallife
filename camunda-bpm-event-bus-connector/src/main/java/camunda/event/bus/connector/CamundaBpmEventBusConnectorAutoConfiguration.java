@@ -1,7 +1,7 @@
 package camunda.event.bus.connector;
 
-import event.channel.EventChannelAutoConfiguration;
-import event.channel.contracts.EventChanelContext;
+import camunda.event.channel.EventChannelAutoConfiguration;
+import camunda.event.channel.contracts.EventChanelContext;
 import lombok.extern.slf4j.Slf4j;
 import org.camunda.bpm.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.camunda.bpm.spring.boot.starter.configuration.impl.AbstractCamundaConfiguration;

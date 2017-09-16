@@ -1,4 +1,4 @@
-package event.channel.contracts;
+package camunda.event.channel.contracts;
 
 /**
  * @author Bhuwan Prasad Upadhyay

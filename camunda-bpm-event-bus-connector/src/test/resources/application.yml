@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: camunda-bpm-event-bus-connector
+  datasource:
+    driver-class-name: org.h2.Driver

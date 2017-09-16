@@ -1,6 +1,7 @@
 package camunda.event.bus.connector;
 
-import event.channel.contracts.EventChanelContext;
+import camunda.event.channel.contracts.EventChanelContext;
+import camunda.event.channel.contracts.ImmutableEventListenerSpec;
 import lombok.extern.slf4j.Slf4j;
 import org.camunda.bpm.engine.impl.bpmn.parser.AbstractBpmnParseListener;
 import org.camunda.bpm.engine.impl.pvm.process.ActivityImpl;
@@ -24,7 +25,11 @@ class StartEventParseListener extends AbstractBpmnParseListener {
     @Override
     public void parseStartEvent(Element startEventElement, ScopeImpl scope, ActivityImpl startEventActivity) {
         log.info("Start Event");
-        //eventChanelContext.registerListener();
+        eventChanelContext.registerListener(ImmutableEventListenerSpec.builder()
+                .message("")
+                .handleEventBean(new CamundaBpmStartMessageEventListenerHandler())
+                .build()
+        );
     }
 
 

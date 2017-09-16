@@ -1,4 +1,4 @@
-package event.channel;
+package camunda.event.channel;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -17,4 +17,5 @@ public class EventChannelProperties {
     static final String CONFIG_PROPERTIES_PREFIX = "event.channel";
 
     private String type;
+
 }
