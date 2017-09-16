@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="1.10.0">
+  <bpmn:process id="ORDER_PROCESS" isExecutable="true">
+    <bpmn:sequenceFlow id="SequenceFlow_1syum8t" sourceRef="START_ORDER_EVENT" targetRef="ORDER_PAYMENT" />
+    <bpmn:sequenceFlow id="SequenceFlow_0flf7v5" sourceRef="ORDER_PAYMENT" targetRef="END_ORDER_EVENT" />
+    <bpmn:startEvent id="START_ORDER_EVENT">
+      <bpmn:outgoing>SequenceFlow_1syum8t</bpmn:outgoing>
+      <bpmn:messageEventDefinition messageRef="Message_1vu7jxo" />
+    </bpmn:startEvent>
+    <bpmn:endEvent id="END_ORDER_EVENT">
+      <bpmn:incoming>SequenceFlow_0flf7v5</bpmn:incoming>
+      <bpmn:messageEventDefinition />
+    </bpmn:endEvent>
+    <bpmn:serviceTask id="ORDER_PAYMENT" name="ORDER PAYMENT" camunda:delegateExpression="${orderPaymentUseCase}">
+      <bpmn:incoming>SequenceFlow_1syum8t</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0flf7v5</bpmn:outgoing>
+    </bpmn:serviceTask>
+  </bpmn:process>
+  <bpmn:message id="Message_1vu7jxo" name="ORDER_PAYMENT_MSG" />
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="ORDER_PROCESS">
+      <bpmndi:BPMNEdge id="SequenceFlow_1syum8t_di" bpmnElement="SequenceFlow_1syum8t">
+        <di:waypoint xsi:type="dc:Point" x="225" y="221" />
+        <di:waypoint xsi:type="dc:Point" x="254" y="221" />
+        <di:waypoint xsi:type="dc:Point" x="254" y="221" />
+        <di:waypoint xsi:type="dc:Point" x="278" y="221" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="224" y="215" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0flf7v5_di" bpmnElement="SequenceFlow_0flf7v5">
+        <di:waypoint xsi:type="dc:Point" x="378" y="221" />
+        <di:waypoint xsi:type="dc:Point" x="450" y="221" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="369" y="200" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="StartEvent_1m0j792_di" bpmnElement="START_ORDER_EVENT">
+        <dc:Bounds x="189" y="203" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="162" y="239" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_17blfwx_di" bpmnElement="END_ORDER_EVENT">
+        <dc:Bounds x="450" y="203" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="423" y="243" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ServiceTask_0hnnkry_di" bpmnElement="ORDER_PAYMENT">
+        <dc:Bounds x="278" y="181" width="100" height="80" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
