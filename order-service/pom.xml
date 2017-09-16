@@ -19,14 +19,10 @@
         </dependency>
         <dependency>
             <groupId>io.github.devbhuwan</groupId>
-            <artifactId>camunda-event-channel</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>io.github.devbhuwan</groupId>
             <artifactId>camunda-bpm-event-bus-connector</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+        <!-- TEST -->
         <dependency>
             <groupId>org.camunda.bpm.extension.springboot</groupId>
             <artifactId>camunda-bpm-spring-boot-starter-test</artifactId>
@@ -37,7 +33,6 @@
             <artifactId>h2</artifactId>
         </dependency>
         <dependency>
-            <!-- make sure to use this version as of https://github.com/camunda/camunda-bpm-assert/issues/90 -->
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
             <version>1.7.1</version>
@@ -49,21 +44,18 @@
             <version>0.2</version>
             <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>org.camunda.bpm.extension</groupId>
             <artifactId>camunda-bpm-assert</artifactId>
             <version>2.0-alpha1</version>
             <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>org.camunda.bpm.extension</groupId>
             <artifactId>camunda-bpm-process-test-coverage</artifactId>
             <version>0.3.0</version>
             <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-stream-test-support</artifactId>
