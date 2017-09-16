@@ -18,7 +18,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest(classes = TestApplication.class,
         webEnvironment = SpringBootTest.WebEnvironment.NONE,
         properties = {
-                "camunda.bpm.auto-deployment-enabled=false"
+                //"camunda.bpm.auto-deployment-enabled=false"
         }
 )
 @Deployment(resources = "ORDER_PROCESS.bpmn")

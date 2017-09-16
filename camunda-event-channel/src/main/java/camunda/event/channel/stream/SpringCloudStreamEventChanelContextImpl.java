@@ -14,13 +14,13 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class SpringCloudStreamEventChanelContextImpl implements EventChanelContext {
 
-    @Autowired
-    private StreamListenerAnnotationBeanPostProcessor streamListenerAnnotationBeanPostProcessor;
+    //@Autowired
+    //private StreamListenerAnnotationBeanPostProcessor streamListenerAnnotationBeanPostProcessor;
 
     @Override
     public void registerListener(EventListenerSpec eventListenerSpec) {
         log.info("Registering Listener [{}]", eventListenerSpec.toString());
-        streamListenerAnnotationBeanPostProcessor.postProcessAfterInitialization(eventListenerSpec.handleEventBean(), eventListenerSpec.message());
+        //streamListenerAnnotationBeanPostProcessor.postProcessAfterInitialization(eventListenerSpec.handleEventBean(), eventListenerSpec.message());
     }
 
 }

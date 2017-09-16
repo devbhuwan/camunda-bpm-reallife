@@ -9,14 +9,17 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.cloud.stream.messaging.Sink;
+import org.springframework.context.annotation.Lazy;
 
 @Slf4j
 @EnableBinding(Sink.class)
 public class CamundaBpmStartMessageEventListenerHandler {
 
     @Autowired
+    @Lazy
     private RepositoryService repositoryService;
     @Autowired
+    @Lazy
     private RuntimeService runtimeService;
     @Value("${camunda.bpm.decorator.businessKey:${spring.application.name}}")
     private String businessKey;
