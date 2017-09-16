@@ -1,4 +1,4 @@
-package order.service.config;
+package camunda.order.service.config;
 
 import org.springframework.boot.test.context.TestConfiguration;
 

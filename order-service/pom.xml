@@ -20,6 +20,14 @@
             <groupId>io.github.devbhuwan</groupId>
             <artifactId>camunda-bpm-event-bus-connector</artifactId>
         </dependency>
+        <dependency>
+            <groupId>io.github.devbhuwan</groupId>
+            <artifactId>order-model</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.github.devbhuwan</groupId>
+            <artifactId>config</artifactId>
+        </dependency>
         <!-- TEST -->
         <dependency>
             <groupId>org.camunda.bpm.extension.springboot</groupId>

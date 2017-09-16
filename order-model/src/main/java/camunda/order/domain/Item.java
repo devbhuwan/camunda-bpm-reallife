@@ -1,4 +1,4 @@
-package order.service.domain;
+package camunda.order.domain;
 
 /**
  * @author Bhuwan Prasad Upadhyay

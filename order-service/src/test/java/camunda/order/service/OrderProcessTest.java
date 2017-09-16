@@ -1,6 +1,6 @@
-package order.service;
+package camunda.order.service;
 
-import order.service.bpmn.metadata.OrderProcessConstants;
+import camunda.order.service.bpmn.metadata.OrderProcessConstants;
 import org.camunda.bpm.engine.ProcessEngine;
 import org.camunda.bpm.engine.test.Deployment;
 import org.camunda.bpm.engine.test.ProcessEngineRule;

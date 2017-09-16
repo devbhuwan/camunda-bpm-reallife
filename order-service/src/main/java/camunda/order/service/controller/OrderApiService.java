@@ -1,8 +1,8 @@
-package order.service.controller;
+package camunda.order.service.controller;
 
 import camunda.event.bus.connector.contracts.CamundaMessageStartEvent;
 import camunda.event.bus.connector.contracts.ImmutableCamundaMessageStartEvent;
-import order.service.domain.Order;
+import camunda.order.domain.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.stream.messaging.Sink;
 import org.springframework.messaging.support.MessageBuilder;

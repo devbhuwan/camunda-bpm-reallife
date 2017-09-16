@@ -1,4 +1,4 @@
-package order.service.config;
+package camunda.order.service.config;
 
 import org.camunda.bpm.engine.spring.SpringProcessEngineConfiguration;
 import org.camunda.bpm.extension.process_test_coverage.junit.rules.ProcessCoverageConfigurator;

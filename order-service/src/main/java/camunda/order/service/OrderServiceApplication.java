@@ -1,7 +1,8 @@
-package order.service;
+package camunda.order.service;
 
 
 import bpmntoconstant.generator.annotations.EnableBpmnMetadataConstantGenerator;
+import camunda.ApplicationRoot;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.stream.annotation.EnableBinding;
@@ -13,7 +14,7 @@ import org.springframework.context.annotation.ComponentScan;
  */
 @EnableBpmnMetadataConstantGenerator
 @SpringBootApplication
-@ComponentScan(basePackageClasses = OrderServiceApplication.class)
+@ComponentScan(basePackageClasses = ApplicationRoot.class)
 @EnableBinding(Processor.class)
 public class OrderServiceApplication {
 
