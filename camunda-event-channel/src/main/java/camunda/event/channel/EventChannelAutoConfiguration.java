@@ -20,9 +20,9 @@ public class EventChannelAutoConfiguration {
     @PostConstruct
     private void configure() {
         if (ChannelType.RABBIT.name().equals(properties.getType())) {
-            System.setProperty("spring.", properties.getHost());
+            //System.setProperty("spring.", properties.getHost());
         } else if (ChannelType.KAFKA.name().equals(properties.getType())) {
-            System.setProperty("", properties.getHost());
+            //System.setProperty("", properties.getHost());
         } else {
             throw new UnsupportedOperationException("Event channel does not support for [" + properties.getType() + "]");
         }
