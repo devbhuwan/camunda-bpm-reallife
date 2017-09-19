@@ -7,15 +7,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.stream.messaging.Sink;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("/order")
 public class OrderApiService {
 
     @Autowired
     private Sink sink;
 
-    @PostMapping
+    @PostMapping("/create")
     public String create(Order order) {
         MessageBuilder<CamundaMessageStartEvent> payload = MessageBuilder.withPayload(ImmutableCamundaMessageStartEvent
                 .builder()

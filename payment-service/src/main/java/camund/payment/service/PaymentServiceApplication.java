@@ -15,7 +15,6 @@ import org.springframework.context.annotation.ComponentScan;
 @EnableBpmnMetadataConstantGenerator
 @SpringBootApplication
 @ComponentScan(basePackageClasses = ApplicationRoot.class)
-@EnableBinding(Processor.class)
 public class PaymentServiceApplication {
 
     public static void main(String[] args) {

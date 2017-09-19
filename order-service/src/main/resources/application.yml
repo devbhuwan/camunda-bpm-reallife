@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: order-service
+  datasource:
+    driver-class-name: org.h2.Driver

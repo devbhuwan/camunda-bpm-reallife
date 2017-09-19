@@ -5,8 +5,6 @@ import bpmntoconstant.generator.annotations.EnableBpmnMetadataConstantGenerator;
 import camunda.ApplicationRoot;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.stream.annotation.EnableBinding;
-import org.springframework.cloud.stream.messaging.Processor;
 import org.springframework.context.annotation.ComponentScan;
 
 /**
@@ -15,7 +13,6 @@ import org.springframework.context.annotation.ComponentScan;
 @EnableBpmnMetadataConstantGenerator
 @SpringBootApplication
 @ComponentScan(basePackageClasses = ApplicationRoot.class)
-@EnableBinding(Processor.class)
 public class OrderServiceApplication {
 
     public static void main(String[] args) {

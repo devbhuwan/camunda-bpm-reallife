@@ -62,7 +62,7 @@
                             <images>
                                 <image>
                                     <alias>event-channel</alias>
-                                    <name>rabbitmq:management</name>
+                                    <name>rabbitmq</name>
                                     <run>
                                         <wait>
                                             <log>event channel is ready to accept connections</log>
