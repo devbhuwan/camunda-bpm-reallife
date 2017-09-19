@@ -3,3 +3,7 @@ spring:
     name: order-service
   datasource:
     driver-class-name: org.h2.Driver
+event:
+  channel:
+    type: RABBIT
+
