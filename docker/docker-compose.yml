@@ -1,0 +1,10 @@
+rabbitmq:
+  image: rabbitmq
+order-service:
+  image: devbhuwan/order-service
+  ports:
+    - 8080
+payment-service:
+  image: devbhuwan/payment-service
+  ports:
+    - 8080

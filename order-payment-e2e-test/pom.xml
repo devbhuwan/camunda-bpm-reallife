@@ -74,6 +74,34 @@
                                         </log>
                                     </run>
                                 </image>
+                                <image>
+                                    <alias>order-service</alias>
+                                    <name>devbhuwan/payment-service</name>
+                                    <run>
+                                        <wait>
+                                            <log>order service is ready to accept connections</log>
+                                            <time>20000</time>
+                                        </wait>
+                                        <log>
+                                            <prefix>PAYMENT</prefix>
+                                            <color>red</color>
+                                        </log>
+                                    </run>
+                                </image>
+                                <image>
+                                    <alias>payment-service</alias>
+                                    <name>devbhuwan/payment-service</name>
+                                    <run>
+                                        <wait>
+                                            <log>payment service is ready to accept connections</log>
+                                            <time>20000</time>
+                                        </wait>
+                                        <log>
+                                            <prefix>PAYMENT</prefix>
+                                            <color>aqua</color>
+                                        </log>
+                                    </run>
+                                </image>
                             </images>
                         </configuration>
                         <executions>
