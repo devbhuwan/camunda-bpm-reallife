@@ -29,9 +29,6 @@
     <profiles>
         <profile>
             <id>rabbitmq</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
             <build>
                 <plugins>
                     <plugin>

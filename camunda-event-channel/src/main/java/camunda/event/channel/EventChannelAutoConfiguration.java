@@ -1,11 +1,9 @@
 package camunda.event.channel;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.cloud.bus.BusAutoConfiguration;
-import org.springframework.cloud.stream.binder.BinderConfiguration;
-import org.springframework.cloud.stream.config.BinderProperties;
 import org.springframework.cloud.stream.config.BindingProperties;
 import org.springframework.cloud.stream.config.BindingServiceConfiguration;
 import org.springframework.cloud.stream.config.BindingServiceProperties;
@@ -20,6 +18,7 @@ import java.util.HashMap;
 @Configuration
 @AutoConfigureBefore(BindingServiceConfiguration.class)
 @EnableConfigurationProperties({BindingServiceProperties.class, EventChannelProperties.class})
+@Slf4j
 public class EventChannelAutoConfiguration {
 
     @Autowired
@@ -30,6 +29,7 @@ public class EventChannelAutoConfiguration {
     @PostConstruct
     private void configure() {
         if (ChannelType.RABBIT.name().equals(properties.getType())) {
+            log.info("Configure RABBITMQ configuration........");
             bindingServiceProperties.setDefaultBinder("rabbit");
             HashMap<String, BindingProperties> bindingProperties = new HashMap<>();
             final BindingProperties inputProperties = new BindingProperties();
