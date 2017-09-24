@@ -41,7 +41,6 @@ public class EventChannelAutoConfiguration {
             bindingProperties.put("output", outputProperties);
             bindingServiceProperties.setBindings(bindingProperties);
         } else if (ChannelType.KAFKA.name().equals(properties.getType())) {
-            System.setProperty("", properties.getHost());
         } else {
             throw new UnsupportedOperationException("Event channel does not support for [" + properties.getType() + "]");
         }

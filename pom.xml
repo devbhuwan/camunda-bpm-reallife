@@ -21,7 +21,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.5.6.RELEASE</version>
+        <version>1.5.7.RELEASE</version>
     </parent>
 
     <properties>
@@ -31,6 +31,7 @@
         <camunda.spring.boot.version>2.2.0</camunda.spring.boot.version>
         <auto-service.version>1.0-rc3</auto-service.version>
         <docker.image.prefix>devbhuwan</docker.image.prefix>
+        <version.springboot>1.5.7.RELEASE</version.springboot>
     </properties>
 
     <dependencyManagement>

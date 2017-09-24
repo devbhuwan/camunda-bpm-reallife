@@ -68,6 +68,9 @@
                                             <log>event channel is ready to accept connections</log>
                                             <time>20000</time>
                                         </wait>
+                                        <ports>
+                                            <port>5673:5672</port>
+                                        </ports>
                                         <log>
                                             <prefix>RABBITMQ</prefix>
                                             <color>yellow</color>
@@ -76,32 +79,46 @@
                                 </image>
                                 <image>
                                     <alias>order-service</alias>
-                                    <name>devbhuwan/payment-service</name>
+                                    <name>devbhuwan/order-service</name>
                                     <run>
                                         <wait>
                                             <log>order service is ready to accept connections</log>
                                             <time>20000</time>
                                         </wait>
+                                        <links>
+                                            <link>rabbitmq:rabbitmq</link>
+                                        </links>
+                                        <env>
+                                            <CHANNEL_HOST>rabbitmq</CHANNEL_HOST>
+                                            <CHANNEL_PORT>5672</CHANNEL_PORT>
+                                        </env>
                                         <log>
-                                            <prefix>PAYMENT</prefix>
+                                            <prefix>ORDER</prefix>
                                             <color>red</color>
                                         </log>
                                     </run>
                                 </image>
-                                <image>
-                                    <alias>payment-service</alias>
-                                    <name>devbhuwan/payment-service</name>
-                                    <run>
-                                        <wait>
-                                            <log>payment service is ready to accept connections</log>
-                                            <time>20000</time>
-                                        </wait>
-                                        <log>
-                                            <prefix>PAYMENT</prefix>
-                                            <color>aqua</color>
-                                        </log>
-                                    </run>
-                                </image>
+                                <!--<image>-->
+                                    <!--<alias>payment-service</alias>-->
+                                    <!--<name>devbhuwan/payment-service</name>-->
+                                    <!--<run>-->
+                                        <!--<wait>-->
+                                            <!--<log>payment service is ready to accept connections</log>-->
+                                            <!--<time>20000</time>-->
+                                        <!--</wait>-->
+                                        <!--<links>-->
+                                            <!--<link>rabbitmq:rabbitmq</link>-->
+                                        <!--</links>-->
+                                        <!--<env>-->
+                                            <!--<CHANNEL_HOST>rabbitmq</CHANNEL_HOST>-->
+                                            <!--<CHANNEL_PORT>5672</CHANNEL_PORT>-->
+                                        <!--</env>-->
+                                        <!--<log>-->
+                                            <!--<prefix>PAYMENT</prefix>-->
+                                            <!--<color>aqua</color>-->
+                                        <!--</log>-->
+                                    <!--</run>-->
+                                <!--</image>-->
                             </images>
                         </configuration>
                         <executions>

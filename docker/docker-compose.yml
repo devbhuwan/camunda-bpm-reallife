@@ -9,18 +9,19 @@ services:
     ports:
       - 18080:8080
     environment:
+      - CHANNE_TYPE=RABBIT
       - CHANNEL_PORT=rabbitmq
       - CHANNEL_HOST=5672
     depends_on:
       - rabbitmq
-  payment-service:
-    image: devbhuwan/payment-service
-    ports:
-      - 8080
-    environment:
-      - CHANNEL_PORT=rabbitmq
-      - CHANNEL_HOST=5672
-    ports:
-      - 18181:8080
-    depends_on:
-      - rabbitmq
+#  payment-service:
+#    image: devbhuwan/payment-service
+#    ports:
+#      - 8080
+#    environment:
+#      - CHANNEL_PORT=rabbitmq
+#      - CHANNEL_HOST=5672
+#    ports:
+#      - 18181:8080
+#    depends_on:
+#      - rabbitmq
