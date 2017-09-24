@@ -5,5 +5,7 @@ spring:
     driver-class-name: org.h2.Driver
 event:
   channel:
-    type: RABBIT
+    type: ${CHANNE_TYPE:RABBIT}
+    host: ${CHANNEL_HOST:localhost}
+    port: ${CHANNEL_PORT:5672}
 
