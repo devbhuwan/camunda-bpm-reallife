@@ -9,11 +9,13 @@
         <module>camunda-event-channel</module>
         <module>bpmn-to-constant-generator</module>
         <module>camunda-bpm-decorator</module>
-        <module>order-service</module>
-        <module>payment-service</module>
         <module>camunda-bpm-event-bus-connector</module>
-        <module>order-model</module>
         <module>config</module>
+        <module>camunda-bpm-api-integrator</module>
+        <module>api-swagger-starter</module>
+        <module>order-model</module>
+        <module>payment-service</module>
+        <module>order-service</module>
         <module>order-payment-e2e-test</module>
     </modules>
     <packaging>pom</packaging>
@@ -32,6 +34,8 @@
         <auto-service.version>1.0-rc3</auto-service.version>
         <docker.image.prefix>devbhuwan</docker.image.prefix>
         <version.springboot>1.5.7.RELEASE</version.springboot>
+        <springfox.version>2.7.0</springfox.version>
+        <current.build.version>1.0-SNAPSHOT</current.build.version>
     </properties>
 
     <dependencyManagement>
@@ -136,8 +140,23 @@
             </dependency>
             <dependency>
                 <groupId>io.github.devbhuwan</groupId>
+                <artifactId>camunda-bpm-api-integrator</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>io.github.devbhuwan</groupId>
                 <artifactId>camunda-event-channel</artifactId>
                 <version>1.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger2</artifactId>
+                <version>${springfox.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger-ui</artifactId>
+                <version>${springfox.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

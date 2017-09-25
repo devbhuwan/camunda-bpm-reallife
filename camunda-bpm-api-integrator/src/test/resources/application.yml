@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: camunda-bpm-api-integrator
+  datasource:
+    driver-class-name: org.h2.Driver
+logging:
+  level:
+    org.camunda: debug
+api:
+  swagger:
+    paths: /rest.*|/api.*
+

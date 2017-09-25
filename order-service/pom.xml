@@ -22,6 +22,10 @@
         </dependency>
         <dependency>
             <groupId>io.github.devbhuwan</groupId>
+            <artifactId>camunda-bpm-api-integrator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.github.devbhuwan</groupId>
             <artifactId>order-model</artifactId>
         </dependency>
         <dependency>
