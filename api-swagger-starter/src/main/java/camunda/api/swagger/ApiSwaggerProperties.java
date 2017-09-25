@@ -23,7 +23,8 @@ public class ApiSwaggerProperties {
     private String version = "";
 
     private String paths = "/api.*";
-
+    @Value("${spring.jersey.applicationPath:''}")
+    private String jerseyPath;
     private String license = "Apache License Version 2.0";
 
 }

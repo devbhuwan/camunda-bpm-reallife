@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
+import org.springframework.boot.autoconfigure.jersey.JerseyAutoConfiguration;
 import org.springframework.boot.autoconfigure.web.WebMvcAutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -27,7 +28,7 @@ import java.util.List;
 import static springfox.documentation.builders.PathSelectors.regex;
 
 @ConditionalOnWebApplication
-@AutoConfigureAfter(WebMvcAutoConfiguration.class)
+@AutoConfigureAfter({WebMvcAutoConfiguration.class, JerseyAutoConfiguration.class})
 @EnableConfigurationProperties(ApiSwaggerProperties.class)
 @EnableSwagger2
 @Configuration
@@ -35,7 +36,6 @@ public class ApiSwaggerAutoConfiguration {
 
     @Autowired
     private ApiSwaggerProperties apiSwaggerProperties;
-
 
     @Bean
     @ConditionalOnMissingBean(Docket.class)
@@ -74,9 +74,9 @@ public class ApiSwaggerAutoConfiguration {
         return () -> {
             List<SwaggerResource> resources = new ArrayList<>(defaultResourcesProvider.get());
             SwaggerResource jerseyResource = new SwaggerResource();
-            jerseyResource.setName("Jersey Endpoints");
+            jerseyResource.setName("jersey");
             jerseyResource.setSwaggerVersion(apiSwaggerProperties.getVersion());
-            jerseyResource.setLocation("/jersey/swagger.json");
+            jerseyResource.setLocation(apiSwaggerProperties.getJerseyPath() + "/swagger.json");
             resources.add(jerseyResource);
             return resources;
         };
