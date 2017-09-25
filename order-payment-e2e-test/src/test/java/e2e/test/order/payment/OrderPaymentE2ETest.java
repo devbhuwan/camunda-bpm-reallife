@@ -9,6 +9,7 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.apache.http.HttpStatus;
+import org.hamcrest.CoreMatchers;
 import org.joda.time.Duration;
 import org.junit.ClassRule;
 import org.junit.Test;
@@ -40,8 +41,9 @@ public class OrderPaymentE2ETest {
         RestAssured.
                 given()
                 .contentType(ContentType.JSON)
-                .port(18080)
-                .post("/order/create");
+                .port(docker.containers().container("order-service").port(8080).getExternalPort())
+                .post("/order/create").then()
+                .assertThat().statusCode(200).content(CoreMatchers.equalTo("Successfully created your an order"));
     }
 
 }

@@ -121,7 +121,7 @@ public class EnableBpmnMetadataConstantGeneratorProcessor extends AbstractProces
     }
 
     private void collectsByMessage(Collection<Message> elements) {
-        elements.forEach(node -> addNonEmptyId(node.getId()));
+        elements.forEach(node -> addNonEmptyId(node.getName()));
     }
 
     private void collectsByError(Iterable<Error> elements) {

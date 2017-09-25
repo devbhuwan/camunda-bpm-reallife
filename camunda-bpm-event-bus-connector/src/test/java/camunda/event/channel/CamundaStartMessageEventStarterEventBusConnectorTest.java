@@ -18,10 +18,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest(classes = TestApplication.class,
         webEnvironment = SpringBootTest.WebEnvironment.NONE,
         properties = {
-                //"camunda.bpm.auto-deployment-enabled=false"
+                "camunda.bpm.auto-deployment-enabled=false"
         }
 )
-@Deployment(resources = "ORDER_PROCESS.bpmn")
 public class CamundaStartMessageEventStarterEventBusConnectorTest {
 
     static final String CREATE_ORDER_MSG = "CREATE_ORDER_MSG";
@@ -30,6 +29,7 @@ public class CamundaStartMessageEventStarterEventBusConnectorTest {
     @Autowired
     private MessageCollector messageCollector;
 
+    @Deployment(resources = "ORDER_PROCESS.bpmn")
     @Test
     public void givenListener_whenRegister_thenConnectEventListenerWithEventBus() {
         MessageBuilder<CamundaMessageStartEvent> startEventMessageBuilder = MessageBuilder.withPayload(ImmutableCamundaMessageStartEvent
