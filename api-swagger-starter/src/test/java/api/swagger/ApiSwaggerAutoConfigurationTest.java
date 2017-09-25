@@ -20,7 +20,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 })
 public class ApiSwaggerAutoConfigurationTest {
 
-
     @SpringBootApplication
     @ComponentScan(basePackageClasses = ApiSwaggerAutoConfigurationTest.class)
     static class TestConfiguration {
