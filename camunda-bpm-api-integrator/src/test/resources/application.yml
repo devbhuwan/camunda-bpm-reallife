@@ -9,4 +9,4 @@ logging:
 api:
   swagger:
     paths: /rest.*|/api.*
-
+    jersey-path: /rest
