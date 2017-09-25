@@ -26,13 +26,6 @@ public class EventChannelAutoConfiguration {
 
     @PostConstruct
     private void configure() {
-        if (ChannelType.RABBIT.name().equals(properties.getType())) {
-            log.info("Configure RABBITMQ configuration........");
-            bindingServiceProperties.setDefaultBinder("rabbit");
-        } else if (ChannelType.KAFKA.name().equals(properties.getType())) {
-            bindingServiceProperties.setDefaultBinder("kafka");
-        } else {
-            throw new UnsupportedOperationException("Event channel does not support for [" + properties.getType() + "]");
-        }
+        log.info("AutoConfiguration [{}]", EventChannelAutoConfiguration.class.getSimpleName());
     }
 }

@@ -19,12 +19,25 @@
             <scope>test</scope>
         </dependency>
         <dependency>
+            <groupId>com.palantir.docker.compose</groupId>
+            <artifactId>docker-compose-rule-junit4</artifactId>
+            <version>0.32.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>io.rest-assured</groupId>
             <artifactId>json-schema-validator</artifactId>
             <version>3.0.3</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
+
+    <repositories>
+        <repository>
+            <id>dockerComposePalantir</id>
+            <url>https://dl.bintray.com/palantir/releases</url>
+        </repository>
+    </repositories>
 
     <profiles>
         <profile>

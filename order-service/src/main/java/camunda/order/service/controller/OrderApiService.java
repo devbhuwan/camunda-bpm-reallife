@@ -6,6 +6,7 @@ import camunda.order.domain.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.stream.messaging.Sink;
 import org.springframework.messaging.support.MessageBuilder;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,5 +27,10 @@ public class OrderApiService {
         return "Ok";
     }
 
+
+    @GetMapping("/health")
+    public String health() {
+        return "alive";
+    }
 
 }
