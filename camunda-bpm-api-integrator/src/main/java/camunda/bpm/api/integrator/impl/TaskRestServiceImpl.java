@@ -1,11 +1,11 @@
 package camunda.bpm.api.integrator.impl;
 
-import camunda.bpm.api.integrator.TaskResource;
+import camunda.bpm.api.integrator.TaskRestService;
 import com.google.gson.JsonObject;
 import org.springframework.stereotype.Component;
 
 @Component
-public class TaskResourceImpl implements TaskResource {
+public class TaskRestServiceImpl implements TaskRestService {
 
     @Override
     public JsonObject queryTasks() {
