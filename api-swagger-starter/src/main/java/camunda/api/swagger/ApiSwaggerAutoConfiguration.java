@@ -1,11 +1,11 @@
 package camunda.api.swagger;
 
 import com.google.common.base.Predicate;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
-import org.springframework.boot.autoconfigure.jersey.JerseyAutoConfiguration;
 import org.springframework.boot.autoconfigure.web.WebMvcAutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -28,7 +28,7 @@ import java.util.List;
 import static springfox.documentation.builders.PathSelectors.regex;
 
 @ConditionalOnWebApplication
-@AutoConfigureAfter({WebMvcAutoConfiguration.class, JerseyAutoConfiguration.class})
+@AutoConfigureAfter(WebMvcAutoConfiguration.class)
 @EnableConfigurationProperties(ApiSwaggerProperties.class)
 @EnableSwagger2
 @Configuration
@@ -73,11 +73,13 @@ public class ApiSwaggerAutoConfiguration {
     public SwaggerResourcesProvider swaggerResourcesProvider(InMemorySwaggerResourcesProvider defaultResourcesProvider) {
         return () -> {
             List<SwaggerResource> resources = new ArrayList<>(defaultResourcesProvider.get());
-            SwaggerResource jerseyResource = new SwaggerResource();
-            jerseyResource.setName("jersey");
-            jerseyResource.setSwaggerVersion(apiSwaggerProperties.getVersion());
-            jerseyResource.setLocation(apiSwaggerProperties.getJerseyPath() + "/swagger.json");
-            resources.add(jerseyResource);
+            if (StringUtils.isNotBlank(apiSwaggerProperties.getJerseyPath())) {
+                SwaggerResource jerseyResource = new SwaggerResource();
+                jerseyResource.setName("jersey");
+                jerseyResource.setSwaggerVersion(apiSwaggerProperties.getVersion());
+                jerseyResource.setLocation(apiSwaggerProperties.getJerseyPath() + "/swagger.json");
+                resources.add(jerseyResource);
+            }
             return resources;
         };
     }

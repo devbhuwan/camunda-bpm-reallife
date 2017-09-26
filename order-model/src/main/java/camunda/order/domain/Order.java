@@ -1,6 +1,8 @@
 package camunda.order.domain;
 
-import org.immutables.value.Value;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -8,12 +10,15 @@ import java.util.List;
 /**
  * @author Bhuwan Prasad Upadhyay
  */
-@Value.Immutable
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Order {
 
     private Long id;
     private String orderName;
     private List<String> items;
     private LocalDateTime orderAt;
+    private String processInstanceId;
 
 }
