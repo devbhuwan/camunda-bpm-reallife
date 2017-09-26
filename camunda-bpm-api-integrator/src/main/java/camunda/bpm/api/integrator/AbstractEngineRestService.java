@@ -7,5 +7,5 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(AbstractEngineRestService.ROOT_PATH)
 public interface AbstractEngineRestService {
 
-    String ROOT_PATH = "/api/engine/{name}";
+    String ROOT_PATH = "/api/engine";
 }
