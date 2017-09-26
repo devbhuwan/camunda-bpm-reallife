@@ -25,6 +25,7 @@ public class ApiSwaggerProperties {
     private String paths = "/api.*";
     @Value("${spring.jersey.applicationPath:''}")
     private String jerseyPath;
+    private boolean jerseySwaggerEnable = Boolean.FALSE;
     private String license = "Apache License Version 2.0";
 
 }

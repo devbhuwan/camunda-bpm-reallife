@@ -5,5 +5,4 @@ spring:
     driver-class-name: org.h2.Driver
 api:
   swagger:
-    paths: /rest.*|/api.*
-    jersey-path: /rest
+    paths: /rest.*|/api.*|/task.*

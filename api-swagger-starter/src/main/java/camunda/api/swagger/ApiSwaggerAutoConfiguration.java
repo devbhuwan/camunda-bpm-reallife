@@ -1,7 +1,6 @@
 package camunda.api.swagger;
 
 import com.google.common.base.Predicate;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -73,7 +72,7 @@ public class ApiSwaggerAutoConfiguration {
     public SwaggerResourcesProvider swaggerResourcesProvider(InMemorySwaggerResourcesProvider defaultResourcesProvider) {
         return () -> {
             List<SwaggerResource> resources = new ArrayList<>(defaultResourcesProvider.get());
-            if (StringUtils.isNotBlank(apiSwaggerProperties.getJerseyPath())) {
+            if (apiSwaggerProperties.isJerseySwaggerEnable()) {
                 SwaggerResource jerseyResource = new SwaggerResource();
                 jerseyResource.setName("jersey");
                 jerseyResource.setSwaggerVersion(apiSwaggerProperties.getVersion());
