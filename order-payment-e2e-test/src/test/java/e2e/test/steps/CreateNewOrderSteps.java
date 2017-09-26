@@ -22,10 +22,9 @@ public class CreateNewOrderSteps {
                 .post("/order/create").then();
     }
 
-    @Then("^the response is Successfully created your an order$")
-    public void theResponseIsSuccessfullyCreatedYourAnOrder() {
+    @Then("^the response is (.*)$")
+    public void theResponseIsSuccessfullyCreatedYourAnOrder(String responseMessage) throws Throwable {
         this.createNewOrderResponse.assertThat().statusCode(200)
-                .content(CoreMatchers.equalTo("Successfully created your an order"));
+                .content(CoreMatchers.equalTo(responseMessage));
     }
-
 }
