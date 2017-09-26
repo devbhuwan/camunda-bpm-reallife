@@ -5,9 +5,7 @@ import org.immutables.value.Value;
 import java.util.Map;
 
 @Value.Immutable
-public interface CamundaMessageStartEvent {
-
-    String processDefinitionId();
+public interface CamundaMessageStartCmd {
 
     String messageKey();
 

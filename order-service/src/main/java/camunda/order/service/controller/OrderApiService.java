@@ -1,7 +1,7 @@
 package camunda.order.service.controller;
 
-import camunda.event.bus.connector.contracts.CamundaMessageStartEvent;
-import camunda.event.bus.connector.contracts.ImmutableCamundaMessageStartEvent;
+import camunda.event.bus.connector.contracts.CamundaMessageStartCmd;
+import camunda.event.bus.connector.contracts.ImmutableCamundaMessageStartCmd;
 import camunda.order.domain.Order;
 import camunda.order.service.bpmn.metadata.OrderProcessConstants;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +22,8 @@ public class OrderApiService {
 
     @PostMapping("/create")
     public String create(Order order) {
-        MessageBuilder<CamundaMessageStartEvent> payload = MessageBuilder
-                .withPayload(ImmutableCamundaMessageStartEvent.builder()
-                        .processDefinitionId(OrderProcessConstants.Ids.ORDER_PROCESS)
+        MessageBuilder<CamundaMessageStartCmd> payload = MessageBuilder
+                .withPayload(ImmutableCamundaMessageStartCmd.builder()
                         .messageKey(OrderProcessConstants.Ids.CREATE_ORDER_MSG)
                         .variables(new HashMap<>())
                         .build());

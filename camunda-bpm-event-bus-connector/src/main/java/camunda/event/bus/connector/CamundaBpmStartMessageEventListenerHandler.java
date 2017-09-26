@@ -1,6 +1,6 @@
 package camunda.event.bus.connector;
 
-import camunda.event.bus.connector.contracts.CamundaMessageStartEvent;
+import camunda.event.bus.connector.contracts.CamundaMessageStartCmd;
 import lombok.extern.slf4j.Slf4j;
 import org.camunda.bpm.engine.RepositoryService;
 import org.camunda.bpm.engine.RuntimeService;
@@ -25,7 +25,7 @@ public class CamundaBpmStartMessageEventListenerHandler {
     private String businessKey;
 
     @StreamListener(Sink.INPUT)
-    public void bpmStartEventListener(CamundaMessageStartEvent messageStartEvent) {
+    public void bpmStartEventListener(CamundaMessageStartCmd messageStartEvent) {
         log.info("Start Bpm Message Event [{}]", messageStartEvent.toString());
         runtimeService.createMessageCorrelation(messageStartEvent.messageKey())
                 .correlateStartMessage();

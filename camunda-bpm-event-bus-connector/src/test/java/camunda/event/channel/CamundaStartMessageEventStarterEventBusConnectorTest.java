@@ -1,8 +1,8 @@
 package camunda.event.channel;
 
 import camunda.TestApplication;
-import camunda.event.bus.connector.contracts.CamundaMessageStartEvent;
-import camunda.event.bus.connector.contracts.ImmutableCamundaMessageStartEvent;
+import camunda.event.bus.connector.contracts.CamundaMessageStartCmd;
+import camunda.event.bus.connector.contracts.ImmutableCamundaMessageStartCmd;
 import org.camunda.bpm.engine.test.Deployment;
 import org.camunda.bpm.engine.variable.Variables;
 import org.junit.Test;
@@ -18,9 +18,10 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest(classes = TestApplication.class,
         webEnvironment = SpringBootTest.WebEnvironment.NONE,
         properties = {
-                "camunda.bpm.auto-deployment-enabled=false"
+                //"camunda.bpm.auto-deployment-enabled=false"
         }
 )
+@Deployment(resources = "ORDER_PROCESS.bpmn")
 public class CamundaStartMessageEventStarterEventBusConnectorTest {
 
     static final String CREATE_ORDER_MSG = "CREATE_ORDER_MSG";
@@ -29,14 +30,13 @@ public class CamundaStartMessageEventStarterEventBusConnectorTest {
     @Autowired
     private MessageCollector messageCollector;
 
-    @Deployment(resources = "ORDER_PROCESS.bpmn")
+
     @Test
     public void givenListener_whenRegister_thenConnectEventListenerWithEventBus() {
-        MessageBuilder<CamundaMessageStartEvent> startEventMessageBuilder = MessageBuilder.withPayload(ImmutableCamundaMessageStartEvent
+        MessageBuilder<CamundaMessageStartCmd> startEventMessageBuilder = MessageBuilder.withPayload(ImmutableCamundaMessageStartCmd
                 .builder()
                 .messageKey(CREATE_ORDER_MSG)
                 .variables(Variables.createVariables())
-                .processDefinitionId("ORDER_PROCESS")
                 .build());
         this.sink.input().send(startEventMessageBuilder.build());
     }
