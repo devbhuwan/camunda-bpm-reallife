@@ -5,18 +5,13 @@ import com.palantir.docker.compose.DockerComposeRule;
 import com.palantir.docker.compose.connection.Container;
 import com.palantir.docker.compose.connection.waiting.HealthChecks;
 import com.palantir.docker.compose.connection.waiting.SuccessOrFailure;
-import cucumber.api.CucumberOptions;
-import cucumber.api.junit.Cucumber;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.apache.http.HttpStatus;
 import org.joda.time.Duration;
 import org.junit.ClassRule;
-import org.junit.runner.RunWith;
 
 
-@RunWith(Cucumber.class)
-@CucumberOptions(features = "classpath:Feature/createOrder.feature")
 public class E2ETest {
 
     @ClassRule
@@ -24,7 +19,7 @@ public class E2ETest {
             .file("src/test/resources/docker-compose.yml")
             .saveLogsTo("target/dockerLogs/dockerComposeRuleTest")
             .waitingForService("rabbitmq", HealthChecks.toHaveAllPortsOpen())
-            .waitingForService("order-service", E2ETest::serviceCheck, Duration.standardMinutes(1))
+            .waitingForService("order-service", E2ETest::serviceCheck, Duration.standardMinutes(2))
             .build();
 
     private static SuccessOrFailure serviceCheck(Container container) {
