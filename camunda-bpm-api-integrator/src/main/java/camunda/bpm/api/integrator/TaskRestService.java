@@ -25,4 +25,5 @@ public interface TaskRestService extends AbstractEngineRestService {
     @PostMapping(POST_COMPLETE_TASK_WITH_BODY)
     void submitTaskForm(String taskId, Map<String, Object> variables);
 
+
 }
