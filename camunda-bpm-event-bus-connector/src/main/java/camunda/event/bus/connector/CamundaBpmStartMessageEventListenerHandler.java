@@ -28,7 +28,7 @@ public class CamundaBpmStartMessageEventListenerHandler {
     public void bpmStartEventListener(CamundaMessageStartCmd messageStartEvent) {
         log.info("Start Bpm Message Event [{}]", messageStartEvent.toString());
         runtimeService.createMessageCorrelation(messageStartEvent.messageKey())
-                .correlateStartMessage();
+                .correlateAllWithResult();
     }
 
 }

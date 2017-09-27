@@ -12,10 +12,25 @@ import java.util.List;
  */
 class CamundaEventBusConnectorConfigurator {
 
-    static void initializeEventBusConnectorExtensions(ProcessEngineConfigurationImpl configuration, EventChanelContext eventChanelContext) {
-        List<BpmnParseListener> bpmnParseListeners = new ArrayList<>();
-        bpmnParseListeners.add(new StartEventParseListener(eventChanelContext));
-        configuration.setCustomPreBPMNParseListeners(bpmnParseListeners);
+    final List<BpmnParseListener> bpmnParseListeners = new ArrayList<>();
+
+    private CamundaEventBusConnectorConfigurator() {
     }
+
+    static CamundaEventBusConnectorConfigurator configurator() {
+        return new CamundaEventBusConnectorConfigurator();
+    }
+
+    CamundaEventBusConnectorConfigurator initializeEventBusConnectorExtensions(ProcessEngineConfigurationImpl configuration) {
+        final CamundaEventBusConnectorConfigurator configurator = new CamundaEventBusConnectorConfigurator();
+        configuration.setCustomPreBPMNParseListeners(bpmnParseListeners);
+        return configurator;
+    }
+
+    CamundaEventBusConnectorConfigurator configureStartMessageEventConnector(EventChanelContext eventChanelContext, CamundaBpmStartMessageEventListenerHandler camundaBpmStartMessageEventListenerHandler) {
+        bpmnParseListeners.add(new StartEventParseListener(eventChanelContext, camundaBpmStartMessageEventListenerHandler));
+        return this;
+    }
+
 
 }

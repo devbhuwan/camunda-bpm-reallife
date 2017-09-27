@@ -40,7 +40,7 @@ public class CreateNewOrderSteps {
     public void orderDataEntryForm() {
         orderDataEntryTask = RestAssured.given().contentType(ContentType.JSON)
                 .port(externalPort)
-                .get(TaskRestService.GET_TASKS_BY_PROCESS_INSTANCE_ID).as(TaskDto[].class)[0];
+                .get(TaskRestService.GET_TASKS_BY_PROCESS_INSTANCE_ID, 5).as(TaskDto[].class)[0];
     }
 
     @When("^Submit Data Entry Form itemName is (.*) and quantity is (\\d+)$")
