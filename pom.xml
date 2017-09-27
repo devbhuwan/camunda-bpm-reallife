@@ -166,6 +166,17 @@
                 <version>3.0.3</version>
                 <scope>test</scope>
             </dependency>
+            <dependency>
+                <groupId>com.palantir.docker.compose</groupId>
+                <artifactId>docker-compose-rule-junit4</artifactId>
+                <version>0.32.0</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>net.serenity-bdd</groupId>
+                <artifactId>serenity-cucumber</artifactId>
+                <version>1.5.7</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -319,4 +330,12 @@
             </plugin>
         </plugins>
     </build>
+
+
+    <repositories>
+        <repository>
+            <id>dockerComposePalantir</id>
+            <url>https://dl.bintray.com/palantir/releases</url>
+        </repository>
+    </repositories>
 </project>

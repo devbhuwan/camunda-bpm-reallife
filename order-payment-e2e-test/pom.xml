@@ -15,40 +15,36 @@
         <dependency>
             <groupId>io.rest-assured</groupId>
             <artifactId>rest-assured</artifactId>
-            <version>3.0.3</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>io.rest-assured</groupId>
             <artifactId>json-schema-validator</artifactId>
-            <version>3.0.3</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.palantir.docker.compose</groupId>
             <artifactId>docker-compose-rule-junit4</artifactId>
-            <version>0.32.0</version>
             <scope>test</scope>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/net.serenity-bdd/serenity-cucumber -->
         <dependency>
             <groupId>net.serenity-bdd</groupId>
             <artifactId>serenity-cucumber</artifactId>
-            <version>1.5.7</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>io.github.devbhuwan</groupId>
             <artifactId>order-model</artifactId>
             <version>${current.build.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.github.devbhuwan</groupId>
+            <artifactId>camunda-bpm-api-integrator</artifactId>
+            <version>${current.build.version}</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
-
-    <repositories>
-        <repository>
-            <id>dockerComposePalantir</id>
-            <url>https://dl.bintray.com/palantir/releases</url>
-        </repository>
-    </repositories>
 
     <profiles>
         <profile>
@@ -120,25 +116,25 @@
                                     </run>
                                 </image>
                                 <!--<image>-->
-                                    <!--<alias>payment-service</alias>-->
-                                    <!--<name>devbhuwan/payment-service</name>-->
-                                    <!--<run>-->
-                                        <!--<wait>-->
-                                            <!--<log>payment service is ready to accept connections</log>-->
-                                            <!--<time>20000</time>-->
-                                        <!--</wait>-->
-                                        <!--<links>-->
-                                            <!--<link>rabbitmq:rabbitmq</link>-->
-                                        <!--</links>-->
-                                        <!--<env>-->
-                                            <!--<CHANNEL_HOST>rabbitmq</CHANNEL_HOST>-->
-                                            <!--<CHANNEL_PORT>5672</CHANNEL_PORT>-->
-                                        <!--</env>-->
-                                        <!--<log>-->
-                                            <!--<prefix>PAYMENT</prefix>-->
-                                            <!--<color>aqua</color>-->
-                                        <!--</log>-->
-                                    <!--</run>-->
+                                <!--<alias>payment-service</alias>-->
+                                <!--<name>devbhuwan/payment-service</name>-->
+                                <!--<run>-->
+                                <!--<wait>-->
+                                <!--<log>payment service is ready to accept connections</log>-->
+                                <!--<time>20000</time>-->
+                                <!--</wait>-->
+                                <!--<links>-->
+                                <!--<link>rabbitmq:rabbitmq</link>-->
+                                <!--</links>-->
+                                <!--<env>-->
+                                <!--<CHANNEL_HOST>rabbitmq</CHANNEL_HOST>-->
+                                <!--<CHANNEL_PORT>5672</CHANNEL_PORT>-->
+                                <!--</env>-->
+                                <!--<log>-->
+                                <!--<prefix>PAYMENT</prefix>-->
+                                <!--<color>aqua</color>-->
+                                <!--</log>-->
+                                <!--</run>-->
                                 <!--</image>-->
                             </images>
                         </configuration>
