@@ -16,6 +16,4 @@ public class EventChannelProperties {
 
     static final String CONFIG_PROPERTIES_PREFIX = "event.channel";
 
-    private String type;
-
 }

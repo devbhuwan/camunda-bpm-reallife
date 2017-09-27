@@ -28,10 +28,10 @@ public class CamundaBpmEventBusConnectorAutoConfiguration extends AbstractCamund
 
     @Autowired
     private CamundaBpmEventBusConnectorProperties properties;
-
-    @SuppressWarnings("SpringJavaAutowiringInspection")
     @Autowired
     private EventChanelContext eventChanelContext;
+    @Autowired
+    private CamundaBpmStartMessageEventListenerHandler camundaBpmStartMessageEventListenerHandler;
 
     @PostConstruct
     public void init() {
@@ -41,7 +41,10 @@ public class CamundaBpmEventBusConnectorAutoConfiguration extends AbstractCamund
     @Override
     public void preInit(ProcessEngineConfigurationImpl processEngineConfiguration) {
         log.info("CamundaBpmEventBusConnectorAutoConfiguration #preInit() is {}", properties.isEnable());
-        if (properties.isEnable())
-            CamundaEventBusConnectorConfigurator.initializeEventBusConnectorExtensions(processEngineConfiguration, eventChanelContext);
+        if (properties.isEnable()) {
+            CamundaEventBusConnectorConfigurator.configurator()
+                    .initializeEventBusConnectorExtensions(processEngineConfiguration)
+                    .configureStartMessageEventConnector(eventChanelContext, camundaBpmStartMessageEventListenerHandler);
+        }
     }
 }

@@ -9,11 +9,13 @@
         <module>camunda-event-channel</module>
         <module>bpmn-to-constant-generator</module>
         <module>camunda-bpm-decorator</module>
-        <module>order-service</module>
-        <module>payment-service</module>
         <module>camunda-bpm-event-bus-connector</module>
-        <module>order-model</module>
         <module>config</module>
+        <module>camunda-bpm-api-integrator</module>
+        <module>api-swagger-starter</module>
+        <module>order-model</module>
+        <module>payment-service</module>
+        <module>order-service</module>
         <module>order-payment-e2e-test</module>
     </modules>
     <packaging>pom</packaging>
@@ -21,16 +23,20 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.5.6.RELEASE</version>
+        <version>1.5.7.RELEASE</version>
     </parent>
 
     <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <camunda.spring.boot.version>2.2.0</camunda.spring.boot.version>
         <auto-service.version>1.0-rc3</auto-service.version>
         <docker.image.prefix>devbhuwan</docker.image.prefix>
+        <version.springboot>1.5.7.RELEASE</version.springboot>
+        <springfox.version>2.7.0</springfox.version>
+        <current.build.version>1.0-SNAPSHOT</current.build.version>
     </properties>
 
     <dependencyManagement>
@@ -137,6 +143,39 @@
                 <groupId>io.github.devbhuwan</groupId>
                 <artifactId>camunda-event-channel</artifactId>
                 <version>1.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger2</artifactId>
+                <version>${springfox.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger-ui</artifactId>
+                <version>${springfox.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.rest-assured</groupId>
+                <artifactId>rest-assured</artifactId>
+                <version>3.0.3</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>io.rest-assured</groupId>
+                <artifactId>json-schema-validator</artifactId>
+                <version>3.0.3</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.palantir.docker.compose</groupId>
+                <artifactId>docker-compose-rule-junit4</artifactId>
+                <version>0.32.0</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>net.serenity-bdd</groupId>
+                <artifactId>serenity-cucumber</artifactId>
+                <version>1.5.7</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -291,4 +330,12 @@
             </plugin>
         </plugins>
     </build>
+
+
+    <repositories>
+        <repository>
+            <id>dockerComposePalantir</id>
+            <url>https://dl.bintray.com/palantir/releases</url>
+        </repository>
+    </repositories>
 </project>

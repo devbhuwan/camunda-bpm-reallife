@@ -1,0 +1,9 @@
+
+api:
+  swagger:
+    paths: /api.*|/rest.*
+    jersey-path: /jersey
+    jersey-swagger-enable: true
+spring:
+  jersey:
+    application-path: /jersey

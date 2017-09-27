@@ -15,13 +15,33 @@
         <dependency>
             <groupId>io.rest-assured</groupId>
             <artifactId>rest-assured</artifactId>
-            <version>3.0.3</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>io.rest-assured</groupId>
             <artifactId>json-schema-validator</artifactId>
-            <version>3.0.3</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.palantir.docker.compose</groupId>
+            <artifactId>docker-compose-rule-junit4</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.serenity-bdd</groupId>
+            <artifactId>serenity-cucumber</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.github.devbhuwan</groupId>
+            <artifactId>order-model</artifactId>
+            <version>${current.build.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.github.devbhuwan</groupId>
+            <artifactId>camunda-bpm-api-integrator</artifactId>
+            <version>${current.build.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -29,9 +49,6 @@
     <profiles>
         <profile>
             <id>rabbitmq</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
             <build>
                 <plugins>
                     <plugin>
@@ -68,6 +85,9 @@
                                             <log>event channel is ready to accept connections</log>
                                             <time>20000</time>
                                         </wait>
+                                        <ports>
+                                            <port>5673:5672</port>
+                                        </ports>
                                         <log>
                                             <prefix>RABBITMQ</prefix>
                                             <color>yellow</color>
@@ -76,32 +96,46 @@
                                 </image>
                                 <image>
                                     <alias>order-service</alias>
-                                    <name>devbhuwan/payment-service</name>
+                                    <name>devbhuwan/order-service</name>
                                     <run>
                                         <wait>
                                             <log>order service is ready to accept connections</log>
                                             <time>20000</time>
                                         </wait>
+                                        <links>
+                                            <link>rabbitmq:rabbitmq</link>
+                                        </links>
+                                        <env>
+                                            <CHANNEL_HOST>rabbitmq</CHANNEL_HOST>
+                                            <CHANNEL_PORT>5672</CHANNEL_PORT>
+                                        </env>
                                         <log>
-                                            <prefix>PAYMENT</prefix>
+                                            <prefix>ORDER</prefix>
                                             <color>red</color>
                                         </log>
                                     </run>
                                 </image>
-                                <image>
-                                    <alias>payment-service</alias>
-                                    <name>devbhuwan/payment-service</name>
-                                    <run>
-                                        <wait>
-                                            <log>payment service is ready to accept connections</log>
-                                            <time>20000</time>
-                                        </wait>
-                                        <log>
-                                            <prefix>PAYMENT</prefix>
-                                            <color>aqua</color>
-                                        </log>
-                                    </run>
-                                </image>
+                                <!--<image>-->
+                                <!--<alias>payment-service</alias>-->
+                                <!--<name>devbhuwan/payment-service</name>-->
+                                <!--<run>-->
+                                <!--<wait>-->
+                                <!--<log>payment service is ready to accept connections</log>-->
+                                <!--<time>20000</time>-->
+                                <!--</wait>-->
+                                <!--<links>-->
+                                <!--<link>rabbitmq:rabbitmq</link>-->
+                                <!--</links>-->
+                                <!--<env>-->
+                                <!--<CHANNEL_HOST>rabbitmq</CHANNEL_HOST>-->
+                                <!--<CHANNEL_PORT>5672</CHANNEL_PORT>-->
+                                <!--</env>-->
+                                <!--<log>-->
+                                <!--<prefix>PAYMENT</prefix>-->
+                                <!--<color>aqua</color>-->
+                                <!--</log>-->
+                                <!--</run>-->
+                                <!--</image>-->
                             </images>
                         </configuration>
                         <executions>
