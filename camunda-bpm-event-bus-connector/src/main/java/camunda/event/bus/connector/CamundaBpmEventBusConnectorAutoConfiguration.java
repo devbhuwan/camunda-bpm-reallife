@@ -28,8 +28,6 @@ public class CamundaBpmEventBusConnectorAutoConfiguration extends AbstractCamund
 
     @Autowired
     private CamundaBpmEventBusConnectorProperties properties;
-
-    @SuppressWarnings("SpringJavaAutowiringInspection")
     @Autowired
     private EventChanelContext eventChanelContext;
     @Autowired
