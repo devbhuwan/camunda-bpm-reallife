@@ -1,9 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="1.9.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="1.10.0">
   <bpmn:process id="ORDER_PROCESS" isExecutable="true">
-    <bpmn:sequenceFlow id="SequenceFlow_1syum8t" sourceRef="START_ORDER_EVENT" targetRef="ORDER_ENTRY" />
+    <bpmn:sequenceFlow id="SequenceFlow_1syum8t" sourceRef="START_ORDER_EVENT" targetRef="ORDER_ENTRY">
+      <bpmn:extensionElements>
+        <camunda:properties>
+          <camunda:property name="hello" value="yes" />
+        </camunda:properties>
+      </bpmn:extensionElements>
+    </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="SequenceFlow_0flf7v5" sourceRef="ORDER_ENTRY" targetRef="END_ORDER_EVENT" />
     <bpmn:userTask id="ORDER_ENTRY" name="ORDER ENTRY">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="itemName" type="string" />
+          <camunda:formField id="quantity" type="long" />
+        </camunda:formData>
+      </bpmn:extensionElements>
       <bpmn:incoming>SequenceFlow_1syum8t</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0flf7v5</bpmn:outgoing>
     </bpmn:userTask>

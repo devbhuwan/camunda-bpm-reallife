@@ -3,6 +3,3 @@ spring:
     name: camunda-bpm-api-integrator
   datasource:
     driver-class-name: org.h2.Driver
-api:
-  swagger:
-    paths: /rest.*|/api.*|/task.*
