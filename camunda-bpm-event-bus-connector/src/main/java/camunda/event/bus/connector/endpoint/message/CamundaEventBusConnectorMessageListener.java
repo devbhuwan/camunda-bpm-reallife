@@ -21,7 +21,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class CamundaEventBusConnectorMessageListener {
 
     public static final String START_MESSAGE_EVENT = "START_MESSAGE_EVENT";
-    static final String START_PROCESS_BY_MESSAGE_COMMAND = "StartProcessByMessageCommand";
+    public static final String START_PROCESS_BY_MESSAGE_COMMAND = "StartProcessByMessageCommand";
     private final Map<String, Set<String>> endpointMessageEventNames = new ConcurrentHashMap<>();
     @Autowired
     private RuntimeService runtimeService;

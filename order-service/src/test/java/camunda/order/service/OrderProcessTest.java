@@ -1,13 +1,13 @@
 package camunda.order.service;
 
-import camunda.order.service.bpmn.metadata.OrderProcessConstants;
+import camunda.order.domain.Order;
 import org.camunda.bpm.engine.ProcessEngine;
 import org.camunda.bpm.engine.test.Deployment;
 import org.camunda.bpm.engine.test.ProcessEngineRule;
+import org.camunda.bpm.engine.variable.Variables;
 import org.camunda.bpm.extension.process_test_coverage.junit.rules.TestCoverageProcessEngineRuleBuilder;
 import org.camunda.bpm.scenario.ProcessScenario;
 import org.camunda.bpm.scenario.Scenario;
-import org.camunda.bpm.scenario.delegate.TaskDelegate;
 import org.camunda.bpm.scenario.run.ProcessRunner.ExecutableRunner.StartingByStarter;
 import org.camunda.bpm.scenario.run.ProcessStarter;
 import org.junit.Before;
@@ -16,7 +16,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -24,6 +23,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.PostConstruct;
 
+import static camunda.order.service.bpmn.metadata.OrderProcessConstants.Ids.*;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 /**
@@ -61,14 +62,15 @@ public class OrderProcessTest {
     public void orderProcess() {
         StartingByStarter starter = Scenario.run(orderProcess)
                 .startBy(start());
-        when(orderProcess.waitsAtUserTask(OrderProcessConstants.Ids.ORDER_ENTRY))
-                .thenReturn(TaskDelegate::complete);
+        when(orderProcess.waitsAtUserTask(ORDER_ENTRY))
+                .thenReturn(taskDelegate ->
+                        taskDelegate.complete(Variables.putValue("order", new Order("Sandwich", 10))));
         starter.execute();
-        Mockito.verify(orderProcess).hasFinished(OrderProcessConstants.Ids.END_ORDER_EVENT);
+        verify(orderProcess).hasFinished(END_ORDER_EVENT);
     }
 
     private ProcessStarter start() {
-        return () -> processEngine.getRuntimeService().startProcessInstanceByKey(OrderProcessConstants.Ids.ORDER_PROCESS);
+        return () -> processEngine.getRuntimeService().startProcessInstanceByKey(ORDER_PROCESS);
     }
 
 
