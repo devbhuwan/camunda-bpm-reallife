@@ -1,4 +1,4 @@
-package camunda.event.bus.connector.message;
+package camunda.event.bus.connector.endpoint.message;
 
 import camunda.event.channel.message.Message;
 import com.fasterxml.jackson.databind.ObjectMapper;

@@ -1,4 +1,4 @@
-package camunda.event.bus.connector.message;
+package camunda.event.bus.connector.endpoint.message;
 
 
 import camunda.CamundaBpmEventBusConnectorApplication;
@@ -27,7 +27,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.PostConstruct;
 
-import static camunda.event.bus.connector.message.CamundaEventBusConnectorMessageListener.START_PROCESS_BY_MESSAGE_COMMAND;
+import static camunda.event.bus.connector.endpoint.message.CamundaEventBusConnectorMessageListener.START_PROCESS_BY_MESSAGE_COMMAND;
 import static org.mockito.Mockito.when;
 
 @RunWith(SpringRunner.class)

@@ -1,4 +1,4 @@
-package camunda.event.bus.connector.message;
+package camunda.event.bus.connector.endpoint.message;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

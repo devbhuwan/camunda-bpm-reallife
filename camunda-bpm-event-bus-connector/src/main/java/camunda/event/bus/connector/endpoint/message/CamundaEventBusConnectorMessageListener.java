@@ -1,4 +1,4 @@
-package camunda.event.bus.connector.message;
+package camunda.event.bus.connector.endpoint.message;
 
 import camunda.event.channel.contracts.EventHandler;
 import camunda.event.channel.message.Message;
@@ -36,14 +36,14 @@ public class CamundaEventBusConnectorMessageListener {
         Message<StartProcessByMessageCommandPayload> message = new ObjectMapper().readValue(messageJson, new TypeReference<Message<StartProcessByMessageCommandPayload>>() {
         });
         StartProcessByMessageCommandPayload commandPayload = message.getPayload();
-        if (isMessageBelongsToThisEndpoint(commandPayload))
+        if (isMessageBelongsToCurrentEndpoint(commandPayload))
             runtimeService.createMessageCorrelation(commandPayload.getMessageName())
                     //.processInstanceBusinessKey(message.getTraceId())
                     .setVariables(commandPayload.getVariables())
                     .correlateWithResult();
     }
 
-    private boolean isMessageBelongsToThisEndpoint(StartProcessByMessageCommandPayload commandPayload) {
+    private boolean isMessageBelongsToCurrentEndpoint(StartProcessByMessageCommandPayload commandPayload) {
         return endpointMessageEventNames.get(START_MESSAGE_EVENT).contains(commandPayload.getMessageName());
     }
 

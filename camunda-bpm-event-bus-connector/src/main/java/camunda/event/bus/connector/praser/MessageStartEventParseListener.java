@@ -1,6 +1,6 @@
 package camunda.event.bus.connector.praser;
 
-import camunda.event.bus.connector.message.CamundaEventBusConnectorMessageListener;
+import camunda.event.bus.connector.endpoint.message.CamundaEventBusConnectorMessageListener;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.camunda.bpm.engine.impl.bpmn.parser.AbstractBpmnParseListener;
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Map;
 
-import static camunda.event.bus.connector.message.CamundaEventBusConnectorMessageListener.START_MESSAGE_EVENT;
+import static camunda.event.bus.connector.endpoint.message.CamundaEventBusConnectorMessageListener.START_MESSAGE_EVENT;
 
 
 /**
