@@ -16,18 +16,22 @@
         <dependency>
             <groupId>io.github.devbhuwan</groupId>
             <artifactId>camunda-bpm-decorator</artifactId>
+            <version>${current.build.version}</version>
         </dependency>
         <dependency>
             <groupId>io.github.devbhuwan</groupId>
             <artifactId>camunda-bpm-event-bus-connector</artifactId>
+            <version>${current.build.version}</version>
         </dependency>
         <dependency>
             <groupId>io.github.devbhuwan</groupId>
             <artifactId>order-model</artifactId>
+            <version>${current.build.version}</version>
         </dependency>
         <dependency>
             <groupId>io.github.devbhuwan</groupId>
             <artifactId>config</artifactId>
+            <version>${current.build.version}</version>
         </dependency>
         <!-- TEST -->
         <dependency>

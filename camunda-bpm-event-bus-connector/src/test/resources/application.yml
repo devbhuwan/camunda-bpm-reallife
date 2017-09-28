@@ -3,3 +3,21 @@ spring:
     name: camunda-bpm-event-bus-connector
   datasource:
     driver-class-name: org.h2.Driver
+#  cloud:
+#    stream:
+#      default-binder: rabbit1
+#      bindings:
+#        dataIn:
+#          destination: exchange.a
+#          binder: rabbit1
+#        dataOut:
+#          destination: exchange.a
+#          binder: rabbit1
+#      binders:
+#        rabbit1:
+#          type: rabbit
+#          environment:
+#            spring:
+#                rabbitmq:
+#                  host: localhost
+#                  port: 5672
