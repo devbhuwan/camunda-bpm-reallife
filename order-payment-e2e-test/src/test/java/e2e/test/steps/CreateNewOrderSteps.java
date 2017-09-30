@@ -20,6 +20,8 @@ public class CreateNewOrderSteps {
 
     private static Response submitDataEntryResponse;
     private static Response createOrderResponse;
+    private static Order order;
+    private static Response retrievePaymentResponse;
     private final int externalPort = docker.containers().container("order-service").port(8080).getExternalPort();
     private TaskDto orderDataEntryTask;
 
@@ -39,7 +41,36 @@ public class CreateNewOrderSteps {
 
     @Given("^Order Data Entry Form$")
     public void orderDataEntryForm() {
-        orderDataEntryTask = RestAssured
+        orderDataEntryTask = getCurrentTask();
+    }
+
+
+    @When("^Submit Data Entry Form itemName is (.*) and quantity is (\\d+)$")
+    public void submitDataEntryForm(String itemName, Integer quantity) {
+        VariableMap variables = Variables.createVariables();
+        order = new Order(itemName, quantity);
+        variables.putValue("order", order);
+        submitDataEntryResponse = completeTask(orderDataEntryTask.getId(), variables);
+    }
+
+
+    @Then("^Order is created as a draft$")
+    public void orderIsCreatedAsADraft() {
+        submitDataEntryResponse.then().assertThat().statusCode(200);
+    }
+
+    @When("^Retrieve Order Payment$")
+    public void retrieveOrderPayment() {
+        Order order = RestAssured
+                .given()
+                .contentType(ContentType.JSON)
+                .port(externalPort)
+                .get("/order/all").as(Order[].class)[0];
+        retrievePaymentResponse = completeTask(getCurrentTask().getId(), Variables.putValue("order", order));
+    }
+
+    private TaskDto getCurrentTask() {
+        return RestAssured
                 .given()
                 .contentType(ContentType.JSON)
                 .port(externalPort)
@@ -51,22 +82,12 @@ public class CreateNewOrderSteps {
         return AbstractEngineRestService.ROOT_PATH + path;
     }
 
-    @When("^Submit Data Entry Form itemName is (.*) and quantity is (\\d+)$")
-    public void submitDataEntryForm(String itemName, Integer quantity) {
-        VariableMap variables = Variables.createVariables();
-        variables.putValue("order", new Order(itemName, quantity));
-        submitDataEntryResponse = RestAssured
+    private Response completeTask(String taskId, VariableMap variables) {
+        return RestAssured
                 .given()
                 .contentType(ContentType.JSON)
                 .port(externalPort)
                 .body(variables)
-                .post(engineURI(POST_COMPLETE_TASK_WITH_BODY), orderDataEntryTask.getId());
+                .post(engineURI(POST_COMPLETE_TASK_WITH_BODY), taskId);
     }
-
-    @Then("^Order is created and publish event for payment process$")
-    public void orderIsCreatedAndPublishEventForPaymentProcess() throws Throwable {
-        submitDataEntryResponse.then().assertThat().statusCode(200);
-    }
-
-
 }

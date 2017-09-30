@@ -31,12 +31,7 @@
       </bpmn:extensionElements>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="SequenceFlow_03kivh3" sourceRef="ORDER_ENTRY" targetRef="ServiceTask_InitiateOrder" />
-    <bpmn:sequenceFlow id="SequenceFlow_1d29688" sourceRef="ServiceTask_InitiateOrder" targetRef="Task_Retrieve_Payment" />
-    <bpmn:sequenceFlow id="SequenceFlow_05tjvq7" sourceRef="Task_Retrieve_Payment" targetRef="Task_Payment_Recieved" />
-    <bpmn:sendTask id="Task_Retrieve_Payment" name="Retrieve Payment" camunda:expression="#{retrievePaymentUseCase}">
-      <bpmn:incoming>SequenceFlow_1d29688</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_05tjvq7</bpmn:outgoing>
-    </bpmn:sendTask>
+    <bpmn:sequenceFlow id="SequenceFlow_1d29688" sourceRef="ServiceTask_InitiateOrder" targetRef="RetrievePaymentCommand" />
     <bpmn:sequenceFlow id="SequenceFlow_0l8qcai" sourceRef="Task_Delivered_Order" targetRef="END_ORDER_EVENT" />
     <bpmn:serviceTask id="Task_Delivered_Order" name="Deliver Order" camunda:expression="#{delieverOrder}">
       <bpmn:incoming>SequenceFlow_0mxeqsf</bpmn:incoming>
@@ -47,6 +42,11 @@
       <bpmn:incoming>SequenceFlow_05tjvq7</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0mxeqsf</bpmn:outgoing>
     </bpmn:receiveTask>
+    <bpmn:sendTask id="RetrievePaymentCommand" name="Retrieve Payment" camunda:expression="#{retrievePaymentUseCase}">
+      <bpmn:incoming>SequenceFlow_1d29688</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_05tjvq7</bpmn:outgoing>
+    </bpmn:sendTask>
+    <bpmn:sequenceFlow id="SequenceFlow_05tjvq7" sourceRef="RetrievePaymentCommand" targetRef="Task_Payment_Recieved" />
   </bpmn:process>
   <bpmn:message id="Message_1vu7jxo" name="CreateOrderEvent" />
   <bpmn:message id="Message_07xq8x3" name="PaymentReceivedEvent" />
@@ -93,16 +93,6 @@
           <dc:Bounds x="410" y="237" width="90" height="12" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="SequenceFlow_05tjvq7_di" bpmnElement="SequenceFlow_05tjvq7">
-        <di:waypoint xsi:type="dc:Point" x="490" y="330" />
-        <di:waypoint xsi:type="dc:Point" x="555" y="330" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="522.5" y="309" width="0" height="12" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="SendTask_0za94z5_di" bpmnElement="Task_Retrieve_Payment">
-        <dc:Bounds x="390" y="290" width="100" height="80" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_0l8qcai_di" bpmnElement="SequenceFlow_0l8qcai">
         <di:waypoint xsi:type="dc:Point" x="689" y="156" />
         <di:waypoint xsi:type="dc:Point" x="762" y="156" />
@@ -123,6 +113,16 @@
       <bpmndi:BPMNShape id="ReceiveTask_1d2mfh3_di" bpmnElement="Task_Payment_Recieved">
         <dc:Bounds x="555" y="290" width="100" height="80" />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="SendTask_0za94z5_di" bpmnElement="RetrievePaymentCommand">
+        <dc:Bounds x="390" y="290" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_05tjvq7_di" bpmnElement="SequenceFlow_05tjvq7">
+        <di:waypoint xsi:type="dc:Point" x="490" y="330" />
+        <di:waypoint xsi:type="dc:Point" x="555" y="330" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="478" y="309" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
 </bpmn:definitions>

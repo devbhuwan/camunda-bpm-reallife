@@ -13,4 +13,6 @@ Feature: Create Order
   Scenario: Complete Order Data Entry
     Given Order Data Entry Form
     When Submit Data Entry Form itemName is Sandwich and quantity is 50
-    Then Order is created and publish event for payment process
+    Then Order is created as a draft
+    When Retrieve Order Payment
+
