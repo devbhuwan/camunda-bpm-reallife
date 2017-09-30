@@ -21,7 +21,7 @@ spring:
             spring:
                 rabbitmq:
                   host: ${CHANNEL_HOST:localhost}
-                  port: 5672
+                  port: ${CHANNEL_PORT:5672}
 camunda:
   bpm:
     process-engine-name: ${spring.application.name}

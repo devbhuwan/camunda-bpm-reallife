@@ -4,6 +4,7 @@ import camunda.CurrentUserIdentityProvider;
 import camunda.bpm.api.integrator.TaskRestService;
 import camunda.bpm.api.integrator.dto.TaskDto;
 import camunda.bpm.api.integrator.dto.VariableValueDto;
+import lombok.extern.slf4j.Slf4j;
 import org.camunda.bpm.engine.FormService;
 import org.camunda.bpm.engine.ProcessEngineConfiguration;
 import org.camunda.bpm.engine.TaskService;
@@ -22,6 +23,7 @@ import java.util.stream.Collectors;
 
 
 @RestController
+@Slf4j
 public class TaskRestServiceImpl implements TaskRestService {
 
     @Autowired
@@ -35,6 +37,7 @@ public class TaskRestServiceImpl implements TaskRestService {
 
     @Override
     public List<TaskDto> queryTasks(@NotEmpty @PathVariable("processInstanceId") String processInstanceId) {
+        log.info("Query tasks for [processInstanceId={}]", processInstanceId);
         return securedTaskQuery(taskService.createTaskQuery(), currentUserIdentityProvider)
                 .processInstanceId(processInstanceId)
                 .list().stream().map(task -> {
@@ -53,6 +56,7 @@ public class TaskRestServiceImpl implements TaskRestService {
 
     @Override
     public Map<String, VariableValueDto> queryTaskFormVariables(@NotEmpty @PathVariable("taskId") String taskId) {
+        log.info("Query task form variables for [taskId={}]", taskId);
         return formService.getTaskFormData(taskId).getFormFields().stream()
                 .collect(Collectors.toMap(FormField::getId, formField -> {
                     VariableValueDto valueDto = new VariableValueDto();
@@ -64,6 +68,7 @@ public class TaskRestServiceImpl implements TaskRestService {
 
     @Override
     public void submitTaskForm(@NotEmpty @PathVariable("taskId") String taskId, @RequestBody Map<String, Object> variables) {
+        log.info("Submit Task Form [taskId={}, variables={}]", taskId, variables + "");
         Task task = securedTaskQuery(taskService.createTaskQuery(), currentUserIdentityProvider).taskId(taskId).singleResult();
         if (task != null)
             formService.submitTaskForm(taskId, variables);

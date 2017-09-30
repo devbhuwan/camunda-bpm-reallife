@@ -3,12 +3,13 @@ services:
   rabbitmq:
     image: rabbitmq
     ports:
-      - 5672:5672
+      - 5672
   order-service:
     image: devbhuwan/order-service
     ports:
       - 8080
     environment:
       - CHANNEL_HOST=rabbitmq
+      - CHANNEL_PORT=5672
     depends_on:
       - rabbitmq
