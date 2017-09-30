@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  * @author Bhuwan Prasad Upadhyay
@@ -17,7 +17,7 @@ public class Order implements Serializable {
     private Long id;
     private String itemName;
     private Integer quantity;
-    private LocalDateTime orderAt;
+    private Date orderAt;
     private String processInstanceId;
     private EntityStatus entityStatus;
     private BigDecimal amount;
@@ -25,7 +25,7 @@ public class Order implements Serializable {
     public Order(String itemName, Integer quantity) {
         this.itemName = itemName;
         this.quantity = quantity;
-        this.orderAt = LocalDateTime.now();
+        this.orderAt = new Date();
         this.entityStatus = EntityStatus.DRAFT;
     }
 }
