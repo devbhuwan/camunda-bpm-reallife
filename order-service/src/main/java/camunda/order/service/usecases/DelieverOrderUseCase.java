@@ -1,4 +1,4 @@
-package camund.payment.service.usecase;
+package camunda.order.service.usecases;
 
 import lombok.extern.slf4j.Slf4j;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
@@ -7,11 +7,9 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Slf4j
-public class OrderPaymentUseCase implements JavaDelegate {
-
+public class DelieverOrderUseCase implements JavaDelegate {
     @Override
-    public void execute(DelegateExecution delegateExecution) throws Exception {
+    public void execute(DelegateExecution execution) throws Exception {
         log.info("Delegating [{}]", this.getClass().getSimpleName());
     }
-
 }

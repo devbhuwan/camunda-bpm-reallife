@@ -8,6 +8,7 @@ import org.camunda.bpm.engine.RuntimeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.messaging.Sink;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,6 +25,7 @@ public class CamundaEventBusConnectorMessageListener {
     public static final String START_PROCESS_BY_MESSAGE_COMMAND = "StartProcessByMessageCommand";
     private final Map<String, Set<String>> endpointMessageEventNames = new ConcurrentHashMap<>();
     @Autowired
+    @Lazy
     private RuntimeService runtimeService;
 
     public CamundaEventBusConnectorMessageListener() {

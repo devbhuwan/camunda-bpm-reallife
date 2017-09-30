@@ -2,7 +2,6 @@ package camunda.event.bus.connector.endpoint.message;
 
 
 import camunda.CamundaBpmEventBusConnectorApplication;
-import camunda.bpmn.metadata.OrderProcessConstants;
 import camunda.event.channel.message.Message;
 import org.camunda.bpm.engine.ProcessEngine;
 import org.camunda.bpm.engine.RuntimeService;
@@ -27,6 +26,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.PostConstruct;
 
+import static camunda.bpmn.metadata.EventBusConnectorOrderProcessConstants.Ids.END_ORDER_EVENT;
+import static camunda.bpmn.metadata.EventBusConnectorOrderProcessConstants.Ids.ORDER_ENTRY;
 import static camunda.event.bus.connector.endpoint.message.CamundaEventBusConnectorMessageListener.START_PROCESS_BY_MESSAGE_COMMAND;
 import static org.mockito.Mockito.when;
 
@@ -37,7 +38,7 @@ import static org.mockito.Mockito.when;
                 "camunda.bpm.auto-deployment-enabled=false"
         }
 )
-@Deployment(resources = "ORDER_PROCESS.bpmn")
+@Deployment(resources = "EVENT_BUS_CONNECTOR_ORDER_PROCESS.bpmn")
 public class StartProcessByMessageCommandTest {
 
     @Rule
@@ -50,6 +51,8 @@ public class StartProcessByMessageCommandTest {
     private CamundaEventBusConnectorMessageSender camundaEventBusConnectorMessageSender;
     @Mock
     private ProcessScenario orderProcess;
+    @Mock
+    private ProcessScenario paymentProcess;
     @Autowired
     private RuntimeService runtimeService;
 
@@ -71,10 +74,10 @@ public class StartProcessByMessageCommandTest {
                             new StartProcessByMessageCommandPayload("CREATE_ORDER_MSG")));
                     return runtimeService.createProcessInstanceQuery().active().singleResult();
                 });
-        when(orderProcess.waitsAtUserTask(OrderProcessConstants.Ids.ORDER_ENTRY))
+        when(orderProcess.waitsAtUserTask(ORDER_ENTRY))
                 .thenReturn(TaskDelegate::complete);
         starter.execute();
-        Mockito.verify(orderProcess).hasFinished(OrderProcessConstants.Ids.END_ORDER_EVENT);
+        Mockito.verify(orderProcess).hasFinished(END_ORDER_EVENT);
     }
 
 

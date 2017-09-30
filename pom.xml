@@ -177,6 +177,12 @@
                 <artifactId>serenity-cucumber</artifactId>
                 <version>1.5.7</version>
             </dependency>
+            <dependency>
+                <groupId>net.jodah</groupId>
+                <artifactId>concurrentunit</artifactId>
+                <version>0.4.3</version>
+                <scope>test</scope>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 

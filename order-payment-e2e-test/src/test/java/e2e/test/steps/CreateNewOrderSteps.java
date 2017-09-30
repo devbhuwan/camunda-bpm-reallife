@@ -7,40 +7,40 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import io.restassured.response.Response;
 import io.restassured.response.ValidatableResponse;
 import org.camunda.bpm.engine.variable.VariableMap;
 import org.camunda.bpm.engine.variable.Variables;
-import org.hamcrest.CoreMatchers;
 
 import static e2e.test.E2ETest.docker;
 
 public class CreateNewOrderSteps {
 
     private final int externalPort = docker.containers().container("order-service").port(8080).getExternalPort();
-    private ValidatableResponse createNewOrderProcessResponse;
     private ValidatableResponse submitDataEntryResponse;
     private TaskDto orderDataEntryTask;
+    private Response createOrderResponse;
 
     @When("^I create a new order$")
     public void iCreateANewOrder() {
-        this.createNewOrderProcessResponse = RestAssured.
+        createOrderResponse = RestAssured.
                 given()
                 .contentType(ContentType.JSON)
                 .port(externalPort)
-                .post("/order/create").then();
+                .post("/order/create");
     }
 
     @Then("^the response is (.*)$")
     public void theResponseIsSuccessfullyCreatedYourAnOrder(String responseMessage) throws Throwable {
-        this.createNewOrderProcessResponse.assertThat().statusCode(200)
-                .content(CoreMatchers.equalTo(responseMessage));
+        this.createOrderResponse.then().assertThat().statusCode(200);
     }
 
     @Given("^Order Data Entry Form$")
     public void orderDataEntryForm() {
         orderDataEntryTask = RestAssured.given().contentType(ContentType.JSON)
                 .port(externalPort)
-                .get(TaskRestService.GET_TASKS_BY_PROCESS_INSTANCE_ID, 5).as(TaskDto[].class)[0];
+                .get(TaskRestService.GET_TASKS_BY_PROCESS_INSTANCE_ID, createOrderResponse.as(String.class))
+                .as(TaskDto[].class)[0];
     }
 
     @When("^Submit Data Entry Form itemName is (.*) and quantity is (\\d+)$")
@@ -48,8 +48,8 @@ public class CreateNewOrderSteps {
         VariableMap variables = Variables.createVariables();
         variables.putValue("itemName", itemName);
         variables.putValue("quantity", quantity);
-        this.submitDataEntryResponse = RestAssured.
-                given()
+        this.submitDataEntryResponse = RestAssured
+                .given()
                 .contentType(ContentType.JSON)
                 .port(externalPort)
                 .body(variables)
