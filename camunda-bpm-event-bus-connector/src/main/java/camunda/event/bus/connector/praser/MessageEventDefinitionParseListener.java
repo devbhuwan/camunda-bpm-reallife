@@ -5,6 +5,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.camunda.bpm.engine.impl.bpmn.parser.AbstractBpmnParseListener;
 import org.camunda.bpm.engine.impl.bpmn.parser.EventSubscriptionDeclaration;
 import org.camunda.bpm.engine.impl.core.model.PropertyKey;
+import org.camunda.bpm.engine.impl.event.EventType;
 import org.camunda.bpm.engine.impl.pvm.process.ActivityImpl;
 import org.camunda.bpm.engine.impl.pvm.process.ScopeImpl;
 import org.camunda.bpm.engine.impl.util.xml.Element;
@@ -39,6 +40,7 @@ public class MessageEventDefinitionParseListener extends AbstractBpmnParseListen
         }
     }
 
+
     @Override
     public void parseReceiveTask(Element receiveTaskElement, ScopeImpl scope, ActivityImpl activity) {
         Set<String> eventDefinitions = getEventDefinitions(activity);
@@ -49,10 +51,20 @@ public class MessageEventDefinitionParseListener extends AbstractBpmnParseListen
         });
     }
 
+    @Override
+    public void parseIntermediateMessageCatchEventDefinition(Element messageEventDefinition, ActivityImpl nestedActivity) {
+        Set<String> eventDefinitions = getEventDefinitions(nestedActivity);
+        eventDefinitions.forEach(messageName -> {
+            if (StringUtils.isNotEmpty(messageName)) {
+                eventSubscriptionListener.register(messageName);
+            }
+        });
+    }
+
     private Set<String> getEventDefinitions(ActivityImpl activity) {
         return ((HashMap<String, EventSubscriptionDeclaration>) activity.getProperties().get(new PropertyKey<>("eventDefinitions")))
                 .values().stream()
-                .filter(sub -> "message".equals(sub.getEventType()))
+                .filter(sub -> EventType.MESSAGE.name().equals(sub.getEventType()))
                 .map(EventSubscriptionDeclaration::getUnresolvedEventName)
                 .collect(Collectors.toSet());
     }

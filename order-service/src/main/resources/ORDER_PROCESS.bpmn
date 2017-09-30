@@ -19,7 +19,7 @@
       <bpmn:incoming>SequenceFlow_0l8qcai</bpmn:incoming>
       <bpmn:messageEventDefinition camunda:expression="#{orderCompleted}" />
     </bpmn:endEvent>
-    <bpmn:serviceTask id="ServiceTask_InitiateOrder" name="Initiate Order Draft" camunda:delegateExpression="${initiateOrderUseCase}">
+    <bpmn:serviceTask id="ServiceTask_InitiateOrder" name="Initiate Order Draft" camunda:delegateExpression="#{initiateOrderUseCase}">
       <bpmn:incoming>SequenceFlow_03kivh3</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1d29688</bpmn:outgoing>
     </bpmn:serviceTask>

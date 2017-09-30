@@ -7,7 +7,7 @@
       <bpmn:outgoing>SequenceFlow_1syum8t</bpmn:outgoing>
       <bpmn:messageEventDefinition messageRef="Message_1vu7jxo" />
     </bpmn:startEvent>
-    <bpmn:serviceTask id="ORDER_PAYMENT" name="ORDER PAYMENT" camunda:delegateExpression="${orderPaymentUseCase}">
+    <bpmn:serviceTask id="ORDER_PAYMENT" name="ORDER PAYMENT" camunda:delegateExpression="#{orderPaymentUseCase}">
       <bpmn:incoming>SequenceFlow_1syum8t</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0flf7v5</bpmn:outgoing>
     </bpmn:serviceTask>

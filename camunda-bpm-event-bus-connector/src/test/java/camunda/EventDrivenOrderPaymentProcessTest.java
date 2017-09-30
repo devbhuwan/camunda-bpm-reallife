@@ -1,6 +1,6 @@
 package camunda;
 
-import camunda.event.bus.connector.message.EventSubscriptionPayload;
+import camunda.event.bus.connector.message.SubscriptionPayload;
 import camunda.event.channel.message.Message;
 import camunda.event.channel.message.MessageSender;
 import org.camunda.bpm.engine.ProcessEngine;
@@ -23,7 +23,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.PostConstruct;
-import java.math.BigDecimal;
 
 import static camunda.bpmn.metadata.EventBusConnectorOrderProcessConstants.Ids.*;
 import static camunda.bpmn.metadata.EventBusConnectorPaymentProcessConstants.Ids.PAYMENT_PROCESS;
@@ -64,22 +63,14 @@ public class EventDrivenOrderPaymentProcessTest {
 
     @Test
     public void orderPaymentProcess() throws InterruptedException {
-        messageSender.send(new Message<>(CreateOrderEvent, new EventSubscriptionPayload()));
+        messageSender.send(new Message<>(CreateOrderEvent, new SubscriptionPayload()));
         StartingByStarter orderStarter = Scenario.run(orderProcess)
                 .startBy(() -> processEngine.getRuntimeService()
                         .createProcessInstanceQuery()
                         .processDefinitionKey(ORDER_PROCESS)
                         .active().singleResult());
-
         when(orderProcess.waitsAtUserTask(ORDER_ENTRY))
                 .thenReturn(TaskDelegate::complete);
-
-        when(orderProcess.waitsAtSendTask(RetrievePaymentCommand))
-                .thenReturn(taskDelegate -> {
-                    messageSender.send(new Message<>(RetrievePaymentCommand,
-                            new RetrievePaymentCommandPayload(1000L, BigDecimal.valueOf(50000))));
-                });
-        Thread.sleep(3000);
         StartingByStarter paymentStarter = Scenario.run(paymentProcess)
                 .startBy(() -> processEngine.getRuntimeService()
                         .createProcessInstanceQuery()

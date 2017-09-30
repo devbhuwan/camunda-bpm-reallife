@@ -13,6 +13,7 @@ import org.springframework.cloud.stream.messaging.Sink;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -37,25 +38,27 @@ public class EventSubscriptionListener {
     @EventHandler()
     public void eventSubscriptionListener(String messageJson) {
         try {
-            Message<EventSubscriptionPayload> payload = objectMapper.readValue(messageJson,
-                    new TypeReference<Message<EventSubscriptionPayload>>() {
+            Message<SubscriptionPayload> payloadMessage = objectMapper.readValue(messageJson,
+                    new TypeReference<Message<SubscriptionPayload>>() {
                     });
-            if (payload != null) {
-                executeMessage(payload);
+            if (payloadMessage != null) {
+                executeMessage(payloadMessage);
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
-    private void executeMessage(Message<EventSubscriptionPayload> payload) {
+    private void executeMessage(Message<SubscriptionPayload> payload) {
         if (endpointMessageNames.containsKey(payload.getMessageType())) {
             if (StringUtils.isNotEmpty(payload.getTraceId()) && payload.getPayload().getProcessVariables() != null)
                 runtimeService.correlateMessage(payload.getMessageType(), payload.getTraceId(), payload.getPayload().getProcessVariables());
             else if (StringUtils.isNotEmpty(payload.getTraceId()) && payload.getPayload().getProcessVariables() == null)
                 runtimeService.correlateMessage(payload.getMessageType(), payload.getTraceId());
             else if (payload.getPayload().getProcessVariables() != null)
-                runtimeService.correlateMessage(payload.getMessageType(), payload.getPayload().getProcessVariables());
+                runtimeService.correlateMessage(payload.getMessageType(), new HashMap<>(), payload.getPayload().getProcessVariables());
+            else
+                runtimeService.correlateMessage(payload.getMessageType());
         }
     }
 
