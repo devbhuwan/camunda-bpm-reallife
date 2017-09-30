@@ -25,8 +25,8 @@ public class CreateNewOrderSteps {
 
     @When("^I create a new order$")
     public void iCreateANewOrder() {
-        createOrderResponse = RestAssured.
-                given()
+        createOrderResponse = RestAssured
+                .given()
                 .contentType(ContentType.JSON)
                 .port(externalPort)
                 .post("/order/create");
@@ -39,7 +39,9 @@ public class CreateNewOrderSteps {
 
     @Given("^Order Data Entry Form$")
     public void orderDataEntryForm() {
-        orderDataEntryTask = RestAssured.given().contentType(ContentType.JSON)
+        orderDataEntryTask = RestAssured
+                .given()
+                .contentType(ContentType.JSON)
                 .port(externalPort)
                 .get(engineURI(GET_TASKS_BY_PROCESS_INSTANCE_ID), createOrderResponse.asString())
                 .as(TaskDto[].class)[0];
