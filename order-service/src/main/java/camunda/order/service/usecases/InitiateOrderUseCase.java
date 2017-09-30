@@ -1,6 +1,6 @@
 package camunda.order.service.usecases;
 
-import camunda.bpm.api.integrator.util.VariablesUtil;
+import camunda.bpm.decorator.util.VariablesUtil;
 import camunda.order.domain.Order;
 import camunda.order.service.persistance.OrderRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;

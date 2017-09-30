@@ -1,4 +1,4 @@
-package camunda.bpm.api.integrator.util;
+package camunda.bpm.decorator.util;
 
 import com.google.gson.Gson;
 

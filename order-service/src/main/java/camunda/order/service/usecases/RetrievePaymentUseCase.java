@@ -1,7 +1,7 @@
 package camunda.order.service.usecases;
 
 
-import camunda.bpm.api.integrator.util.VariablesUtil;
+import camunda.bpm.decorator.util.VariablesUtil;
 import camunda.event.channel.message.Message;
 import camunda.event.channel.message.MessageSender;
 import camunda.order.domain.Order;

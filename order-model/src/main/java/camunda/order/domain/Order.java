@@ -17,7 +17,7 @@ public class Order implements Serializable {
     private Long id;
     private String itemName;
     private Integer quantity;
-    private Date orderAt;
+    private Long orderAt;
     private String processInstanceId;
     private EntityStatus entityStatus;
     private BigDecimal amount;
@@ -25,7 +25,7 @@ public class Order implements Serializable {
     public Order(String itemName, Integer quantity) {
         this.itemName = itemName;
         this.quantity = quantity;
-        this.orderAt = new Date();
+        this.orderAt = new Date().getTime();
         this.entityStatus = EntityStatus.DRAFT;
     }
 }

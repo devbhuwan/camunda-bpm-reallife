@@ -14,13 +14,12 @@ public class MessageSender {
 
     private final ObjectMapper mapper = new ObjectMapper();
     @Autowired
-    private MessageChannel output;
+    private MessageChannel input;
 
     public void send(Message<?> m) {
         try {
             String jsonMessage = mapper.writeValueAsString(m);
-            output.send(
-                    MessageBuilder.withPayload(jsonMessage).build());
+            input.send(MessageBuilder.withPayload(jsonMessage).build());
         } catch (Exception e) {
             throw new RuntimeException("Could not transform and send message due to: " + e.getMessage(), e);
         }

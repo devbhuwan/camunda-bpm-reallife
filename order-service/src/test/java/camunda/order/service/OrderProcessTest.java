@@ -65,6 +65,7 @@ public class OrderProcessTest {
         when(orderProcess.waitsAtUserTask(ORDER_ENTRY))
                 .thenReturn(taskDelegate ->
                         taskDelegate.complete(Variables.putValue("order", new Order("Sandwich", 10))));
+
         starter.execute();
         verify(orderProcess).hasFinished(END_ORDER_EVENT);
     }

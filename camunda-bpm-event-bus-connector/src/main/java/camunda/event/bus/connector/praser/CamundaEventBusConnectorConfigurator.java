@@ -1,9 +1,8 @@
 package camunda.event.bus.connector.praser;
 
+import camunda.event.bus.connector.message.EventSubscriptionListener;
 import org.camunda.bpm.engine.impl.bpmn.parser.BpmnParseListener;
 import org.camunda.bpm.engine.impl.cfg.ProcessEngineConfigurationImpl;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,16 +10,11 @@ import java.util.List;
 /**
  * @author Bhuwan Prasad Upadhyay
  */
-@Component
 public class CamundaEventBusConnectorConfigurator {
 
-    private final List<BpmnParseListener> bpmnParseListeners = new ArrayList<>();
-
-    @Autowired
-    private MessageStartEventParseListener messageStartEventParseListener;
-
-    public void initializeEventBusConnectorExtensions(ProcessEngineConfigurationImpl configuration) {
-        bpmnParseListeners.add(messageStartEventParseListener);
+    public static void initializeEventBusConnectorExtensions(ProcessEngineConfigurationImpl configuration, EventSubscriptionListener eventSubscriptionListener) {
+        List<BpmnParseListener> bpmnParseListeners = new ArrayList<>();
+        bpmnParseListeners.add(new MessageEventDefinitionParseListener(eventSubscriptionListener));
         configuration.setCustomPreBPMNParseListeners(bpmnParseListeners);
     }
 
