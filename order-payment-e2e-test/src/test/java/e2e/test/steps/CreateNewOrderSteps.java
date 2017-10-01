@@ -18,11 +18,11 @@ import static e2e.test.E2ETest.docker;
 
 public class CreateNewOrderSteps {
 
-    private static Response submitDataEntryResponse;
-    private static Response createOrderResponse;
-    private static Order order;
-    private static Response retrievePaymentResponse;
     private final int externalPort = docker.containers().container("order-service").port(8080).getExternalPort();
+    private Response submitDataEntryResponse;
+    private Response createOrderResponse;
+    private Order order;
+    private Response retrievePaymentResponse;
     private TaskDto orderDataEntryTask;
 
     @When("^I create a new order$")
@@ -59,16 +59,6 @@ public class CreateNewOrderSteps {
         submitDataEntryResponse.then().assertThat().statusCode(200);
     }
 
-    @When("^Retrieve Order Payment$")
-    public void retrieveOrderPayment() {
-        Order order = RestAssured
-                .given()
-                .contentType(ContentType.JSON)
-                .port(externalPort)
-                .get("/order/all").as(Order[].class)[0];
-        retrievePaymentResponse = completeTask(getCurrentTask().getId(), Variables.putValue("order", order));
-    }
-
     private TaskDto getCurrentTask() {
         return RestAssured
                 .given()
@@ -90,4 +80,5 @@ public class CreateNewOrderSteps {
                 .body(variables)
                 .post(engineURI(POST_COMPLETE_TASK_WITH_BODY), taskId);
     }
+
 }

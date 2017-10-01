@@ -25,7 +25,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import javax.annotation.PostConstruct;
 
 import static camunda.bpmn.metadata.EventBusConnectorOrderProcessConstants.Ids.*;
-import static camunda.bpmn.metadata.EventBusConnectorPaymentProcessConstants.Ids.PAYMENT_PROCESS;
 import static org.mockito.Mockito.when;
 
 @RunWith(SpringRunner.class)
@@ -71,12 +70,6 @@ public class EventDrivenOrderPaymentProcessTest {
                         .active().singleResult());
         when(orderProcess.waitsAtUserTask(ORDER_ENTRY))
                 .thenReturn(TaskDelegate::complete);
-        StartingByStarter paymentStarter = Scenario.run(paymentProcess)
-                .startBy(() -> processEngine.getRuntimeService()
-                        .createProcessInstanceQuery()
-                        .processDefinitionKey(PAYMENT_PROCESS)
-                        .active().singleResult());
         orderStarter.execute();
-        paymentStarter.execute();
     }
 }

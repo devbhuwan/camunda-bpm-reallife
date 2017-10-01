@@ -3,3 +3,25 @@ spring:
     name: payment-service
   datasource:
     driver-class-name: org.h2.Driver
+  cloud:
+    stream:
+      default-binder: rabbit1
+      bindings:
+        dataIn:
+          destination: exchange.a
+          binder: rabbit1
+          group: group1
+        dataOut:
+          destination: exchange.a
+          binder: rabbit1
+      binders:
+        rabbit1:
+          type: rabbit
+          environment:
+            spring:
+                rabbitmq:
+                  host: ${CHANNEL_HOST:localhost}
+                  port: ${CHANNEL_PORT:5672}
+camunda:
+  bpm:
+    process-engine-name: ${spring.application.name}

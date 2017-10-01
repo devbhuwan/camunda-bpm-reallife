@@ -1,27 +1,55 @@
 version: '3'
 services:
+  db:
+    image: mysql:5.5
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
   rabbitmq:
     image: rabbitmq
     ports:
-      - 5672:5672
+      - 5672
   order-service:
     image: devbhuwan/order-service
     ports:
-      - 18080:8080
+      - 8080
     environment:
-      - CHANNEL_TYPE=RABBIT
-      - CHANNEL_PORT=rabbitmq
-      - CHANNEL_HOST=5672
+      - SPRING_DATASOURCE_DRIVERCLASSNAME=${DATASOURCE_DRIVERCLASSNAME}
+      - SPRING_DATASOURCE_USERNAME=${DATASOURCE_USERNAME}
+      - SPRING_DATASOURCE_PASSWORD=${DATASOURCE_PASSWORD}
+      - SPRING_DATASOURCE_URL=${DATASOURCE_URL}
+      - CHANNEL_HOST=${CHANNEL_HOST}
+      - CHANNEL_PORT=${CHANNEL_PORT}
     depends_on:
       - rabbitmq
-#  payment-service:
-#    image: devbhuwan/payment-service
-#    ports:
-#      - 8080
-#    environment:
-#      - CHANNEL_PORT=rabbitmq
-#      - CHANNEL_HOST=5672
-#    ports:
-#      - 18181:8080
-#    depends_on:
-#      - rabbitmq
+      - camunda-admin-dashboard-service
+  payment-service:
+    image: devbhuwan/payment-service
+    ports:
+      - 8080
+    environment:
+      - SPRING_DATASOURCE_DRIVERCLASSNAME=${DATASOURCE_DRIVERCLASSNAME}
+      - SPRING_DATASOURCE_USERNAME=${DATASOURCE_USERNAME}
+      - SPRING_DATASOURCE_PASSWORD=${DATASOURCE_PASSWORD}
+      - SPRING_DATASOURCE_URL=${DATASOURCE_URL}
+      - CHANNEL_HOST=${CHANNEL_HOST}
+      - CHANNEL_PORT=${CHANNEL_PORT}
+    depends_on:
+      - rabbitmq
+      - camunda-admin-dashboard-service
+  camunda-admin-dashboard-service:
+    image: devbhuwan/camunda-admin-dashboard-service
+    ports:
+      - 8080
+    environment:
+      - SPRING_DATASOURCE_DRIVERCLASSNAME=${DATASOURCE_DRIVERCLASSNAME}
+      - SPRING_DATASOURCE_USERNAME=${DATASOURCE_USERNAME}
+      - SPRING_DATASOURCE_PASSWORD=${DATASOURCE_PASSWORD}
+      - SPRING_DATASOURCE_URL=${DATASOURCE_URL}
+    depends_on:
+      - db
+    command: >
+      /bin/bash -c "
+        sleep 10;
+        nc -lk 0.0.0.0 8080;
+      "

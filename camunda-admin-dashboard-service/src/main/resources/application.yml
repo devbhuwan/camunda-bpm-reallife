@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: camunda-admin-dashboard-service
+  datasource:
+    driver-class-name: org.h2.Driver
+camunda:
+  bpm:
+    process-engine-name: ${spring.application.name}
