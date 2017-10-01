@@ -19,7 +19,6 @@ import static camunda.bpmn.metadata.EventBusConnectorOrderProcessConstants.Ids.R
 @Slf4j
 public class RetrievePaymentUseCase implements JavaDelegate {
 
-
     @Autowired
     private MessageSender messageSender;
 

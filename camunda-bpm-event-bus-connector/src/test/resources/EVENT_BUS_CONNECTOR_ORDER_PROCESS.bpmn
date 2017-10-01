@@ -49,7 +49,7 @@
     <bpmn:sequenceFlow id="SequenceFlow_0mxeqsf" sourceRef="Task_Payment_Recieved" targetRef="Task_Delivered_Order" />
   </bpmn:process>
   <bpmn:message id="Message_1vu7jxo" name="CreateOrderEvent" />
-  <bpmn:message id="Message_07xq8x3" />
+  <bpmn:message id="Message_07xq8x3" name="PaymentReceivedEvent" />
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="ORDER_PROCESS">
       <bpmndi:BPMNShape id="UserTask_0kyih46_di" bpmnElement="ORDER_ENTRY">
