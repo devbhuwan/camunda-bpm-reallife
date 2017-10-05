@@ -145,6 +145,12 @@
                 <artifactId>cukes-rest-loadrunner</artifactId>
                 <version>0.0.16</version>
             </dependency>
+            <dependency>
+                <groupId>com.github.cukespace</groupId>
+                <artifactId>cukespace-core</artifactId>
+                <version>1.6.7</version>
+                <scope>test</scope>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -215,6 +221,11 @@
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>build-helper-maven-plugin</artifactId>
                     <version>3.0.0</version>
+                </plugin>
+                <plugin>
+                    <groupId>com.bazaarvoice.maven.plugins</groupId>
+                    <artifactId>process-exec-maven-plugin</artifactId>
+                    <version>0.7</version>
                 </plugin>
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>

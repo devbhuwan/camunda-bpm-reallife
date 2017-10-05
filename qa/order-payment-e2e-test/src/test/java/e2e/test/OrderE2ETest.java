@@ -2,6 +2,7 @@ package e2e.test;
 
 import cucumber.api.CucumberOptions;
 import net.serenitybdd.cucumber.CucumberWithSerenity;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 
 
@@ -14,4 +15,8 @@ import org.junit.runner.RunWith;
 )
 public class OrderE2ETest extends E2ETest {
 
+    @Test
+    public void name() throws Exception {
+
+    }
 }
