@@ -140,6 +140,11 @@
                 <version>0.4.3</version>
                 <scope>test</scope>
             </dependency>
+            <dependency>
+                <groupId>lv.ctco.cukes</groupId>
+                <artifactId>cukes-rest-loadrunner</artifactId>
+                <version>0.0.16</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 

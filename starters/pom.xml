@@ -3,25 +3,17 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
+        <artifactId>camunda-bpm-reallife</artifactId>
         <groupId>io.github.devbhuwan</groupId>
-        <artifactId>camunda-bpm-reallife-parent</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>camunda-bpm-reallife</artifactId>
+    <artifactId>starters</artifactId>
 
     <modules>
-
-        <module>config</module>
-        <module>order-model</module>
-        <module>payment-service</module>
-        <module>order-service</module>
-        <module>starters</module>
-        <module>qa</module>
-        <module>devops</module>
-        <module>camunda</module>
-        <module>infrastructure</module>
+        <module>cukes-rest-test-support-starter</module>
     </modules>
+
     <packaging>pom</packaging>
 
 </project>

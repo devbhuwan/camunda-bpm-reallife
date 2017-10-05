@@ -13,155 +13,27 @@
 
     <dependencies>
         <dependency>
-            <groupId>io.rest-assured</groupId>
-            <artifactId>rest-assured</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>io.rest-assured</groupId>
-            <artifactId>json-schema-validator</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.palantir.docker.compose</groupId>
-            <artifactId>docker-compose-rule-junit4</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
             <groupId>net.serenity-bdd</groupId>
             <artifactId>serenity-cucumber</artifactId>
             <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.google.guava</groupId>
+                    <artifactId>guava</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>io.github.devbhuwan</groupId>
-            <artifactId>order-model</artifactId>
+            <artifactId>cukes-rest-test-support-starter</artifactId>
             <version>${current.build.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>io.github.devbhuwan</groupId>
-            <artifactId>camunda-bpm-api-integrator</artifactId>
-            <version>${current.build.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>net.jodah</groupId>
-            <artifactId>concurrentunit</artifactId>
-            <scope>test</scope>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>21.0</version>
         </dependency>
     </dependencies>
 
-    <profiles>
-        <profile>
-            <id>rabbitmq</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-surefire-plugin</artifactId>
-                        <configuration>
-                            <skip>true</skip>
-                        </configuration>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-failsafe-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <goals>
-                                    <goal>integration-test</goal>
-                                    <goal>verify</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>io.fabric8</groupId>
-                        <artifactId>docker-maven-plugin</artifactId>
-                        <configuration>
-                            <logDate>default</logDate>
-                            <autoPull>true</autoPull>
-                            <images>
-                                <image>
-                                    <alias>event-channel</alias>
-                                    <name>rabbitmq</name>
-                                    <run>
-                                        <wait>
-                                            <log>event channel is ready to accept connections</log>
-                                            <time>20000</time>
-                                        </wait>
-                                        <ports>
-                                            <port>5673:5672</port>
-                                        </ports>
-                                        <log>
-                                            <prefix>RABBITMQ</prefix>
-                                            <color>yellow</color>
-                                        </log>
-                                    </run>
-                                </image>
-                                <image>
-                                    <alias>order-service</alias>
-                                    <name>devbhuwan/order-service</name>
-                                    <run>
-                                        <wait>
-                                            <log>order service is ready to accept connections</log>
-                                            <time>20000</time>
-                                        </wait>
-                                        <links>
-                                            <link>rabbitmq:rabbitmq</link>
-                                        </links>
-                                        <env>
-                                            <CHANNEL_HOST>rabbitmq</CHANNEL_HOST>
-                                            <CHANNEL_PORT>5672</CHANNEL_PORT>
-                                        </env>
-                                        <log>
-                                            <prefix>ORDER</prefix>
-                                            <color>red</color>
-                                        </log>
-                                    </run>
-                                </image>
-                                <!--<image>-->
-                                <!--<alias>payment-service</alias>-->
-                                <!--<name>devbhuwan/payment-service</name>-->
-                                <!--<run>-->
-                                <!--<wait>-->
-                                <!--<log>payment service is ready to accept connections</log>-->
-                                <!--<time>20000</time>-->
-                                <!--</wait>-->
-                                <!--<links>-->
-                                <!--<link>rabbitmq:rabbitmq</link>-->
-                                <!--</links>-->
-                                <!--<env>-->
-                                <!--<CHANNEL_HOST>rabbitmq</CHANNEL_HOST>-->
-                                <!--<CHANNEL_PORT>5672</CHANNEL_PORT>-->
-                                <!--</env>-->
-                                <!--<log>-->
-                                <!--<prefix>PAYMENT</prefix>-->
-                                <!--<color>aqua</color>-->
-                                <!--</log>-->
-                                <!--</run>-->
-                                <!--</image>-->
-                            </images>
-                        </configuration>
-                        <executions>
-                            <execution>
-                                <id>start</id>
-                                <phase>pre-integration-test</phase>
-                                <goals>
-                                    <goal>start</goal>
-                                </goals>
-                            </execution>
-                            <execution>
-                                <id>stop</id>
-                                <phase>post-integration-test</phase>
-                                <goals>
-                                    <goal>stop</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
 </project>
