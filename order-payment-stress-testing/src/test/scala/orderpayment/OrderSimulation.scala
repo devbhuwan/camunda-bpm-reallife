@@ -17,7 +17,7 @@ class OrderSimulation extends Simulation {
   val orderScenario = scenario("Create New Order")
     .feed(orderFeeder)
     .exec(http("POST order")
-      .post("/order")
+      .post("/order/create")
       .body(StringBody(
         """{
           |"itemName":"${itemName}",
