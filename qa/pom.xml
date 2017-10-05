@@ -13,6 +13,7 @@
     <modules>
         <module>order-payment-e2e-test</module>
         <module>order-payment-stress-testing</module>
+        <module>rabbitmq-embedded</module>
     </modules>
     <packaging>pom</packaging>
 
