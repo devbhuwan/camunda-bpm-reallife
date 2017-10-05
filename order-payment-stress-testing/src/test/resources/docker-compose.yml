@@ -7,7 +7,7 @@ services:
   order-service:
     image: devbhuwan/order-service
     ports:
-      - 8080
+      - 18080:8080
     environment:
       - CHANNEL_HOST=rabbitmq
       - CHANNEL_PORT=5672
