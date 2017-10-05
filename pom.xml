@@ -19,6 +19,7 @@
         <module>order-payment-e2e-test</module>
         <module>camunda-admin-dashboard-service</module>
         <module>keycloak-uaa-service</module>
+        <module>order-payment-stress-testing</module>
     </modules>
     <packaging>pom</packaging>
 
