@@ -2,6 +2,7 @@ package bpmntoconstant.generator.annotations.processors;
 
 import org.springframework.core.io.Resource;
 import org.springframework.util.Assert;
+import org.springframework.util.StringUtils;
 
 import javax.lang.model.element.Element;
 
@@ -25,12 +26,12 @@ class JavaSourceFileHelper {
         return packageName;
     }
 
-    public static String buildClassName(Resource resource) {
+    public static String buildClassName(Resource resource, String postfix) {
         String filename = resource.getFilename();
         int lastIndexOf = filename.lastIndexOf('.');
         if (lastIndexOf > 0)
             filename = filename.substring(0, lastIndexOf);
-        return convertToJavaClassNameConvention(filename) + "Constants";
+        return convertToJavaClassNameConvention(filename) + (StringUtils.isEmpty(postfix) ? "Constants" : postfix);
     }
 
     private static String convertToJavaClassNameConvention(String filename) {
