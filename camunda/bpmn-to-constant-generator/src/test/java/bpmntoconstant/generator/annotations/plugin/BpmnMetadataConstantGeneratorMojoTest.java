@@ -2,6 +2,7 @@ package bpmntoconstant.generator.annotations.plugin;
 
 import io.takari.maven.testing.TestMavenRuntime;
 import io.takari.maven.testing.TestResources;
+import org.apache.maven.repository.internal.MavenAetherModule;
 import org.junit.Rule;
 import org.junit.Test;
 
@@ -15,7 +16,7 @@ public class BpmnMetadataConstantGeneratorMojoTest {
     public final TestResources resources = new TestResources();
 
     @Rule
-    public final TestMavenRuntime maven = new TestMavenRuntime();
+    public final TestMavenRuntime maven = new TestMavenRuntime(new MavenAetherModule());
 
     @Test
     public void test() throws Exception {
@@ -23,4 +24,5 @@ public class BpmnMetadataConstantGeneratorMojoTest {
         maven.executeMojo(basedir, "compile");
         assertFilesPresent(basedir, "target/output.txt");
     }
+
 }

@@ -20,6 +20,7 @@ public class BpmnMetadataConstantGeneratorMojoIntegrationTest {
     public final MavenRuntime maven;
 
     public BpmnMetadataConstantGeneratorMojoIntegrationTest(MavenRuntime.MavenRuntimeBuilder mavenBuilder) throws Exception {
+        System.setProperty("repository.0", "<url>http://repo1.maven.org/maven2/</url>");
         this.maven = mavenBuilder.withCliOptions("-B", "-U").build();
     }
 
