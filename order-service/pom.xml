@@ -100,7 +100,7 @@
             <plugin>
                 <groupId>io.github.devbhuwan</groupId>
                 <artifactId>bpmn-to-constant-generator</artifactId>
-                <version>${current.build.version}</version>
+                <version>1.0.0</version>
             </plugin>
         </plugins>
     </build>
