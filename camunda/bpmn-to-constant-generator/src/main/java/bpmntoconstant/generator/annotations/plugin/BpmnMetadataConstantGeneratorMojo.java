@@ -14,7 +14,7 @@ import org.apache.maven.plugins.annotations.Mojo;
 @Execute(phase = LifecyclePhase.PROCESS_SOURCES)
 public class BpmnMetadataConstantGeneratorMojo extends CommonsMojo {
 
-    public static final String MOJO_GOAL = "bpmnConstants";
+    public static final String MOJO_GOAL = "generate-bpmn-constants";
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
