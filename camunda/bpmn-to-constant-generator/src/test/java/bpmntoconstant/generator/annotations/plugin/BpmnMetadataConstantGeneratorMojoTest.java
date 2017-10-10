@@ -17,10 +17,11 @@ public class BpmnMetadataConstantGeneratorMojoTest {
     public final TestResources resources = new TestResources();
 
     @Test
-    public void test() throws Exception {
+    public void givenBpmnFilesInSourceAndTestResourceDirectory_whenGenerateBpmnConstantMojo_thenGenerateConstantFiles() throws Exception {
         File basedir = resources.getBasedir("basic");
         maven.executeMojo(basedir, BpmnMetadataConstantGeneratorMojo.MOJO_GOAL);
-        assertFilesPresent(basedir, "target/output.txt");
+        assertFilesPresent(basedir, "target/generated-sources/annotations/bpmn/metadata/BpmnMetadataSrcConstants.java");
+        assertFilesPresent(basedir, "target/generated-test-sources/test-annotations/bpmn/metadata/BpmnMetadataTestConstants.java");
     }
 
 }

@@ -151,7 +151,10 @@ public class BpmMetadataLogger {
 
     private static void printBanner() {
         List<String> banner = new ArrayList<>();
-        banner.add("===============" + Constants.VERSION);
+        banner.add("==============================================");
+        banner.add(" BPM METADATA CONSTANT GENERATOR " + Constants.VERSION + " ");
+        banner.add("==============================================");
         banner.forEach(BpmMetadataLogger::info);
     }
+
 }
