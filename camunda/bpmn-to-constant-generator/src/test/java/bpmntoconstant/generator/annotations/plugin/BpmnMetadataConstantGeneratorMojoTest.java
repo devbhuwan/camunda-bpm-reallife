@@ -19,7 +19,7 @@ public class BpmnMetadataConstantGeneratorMojoTest {
     @Test
     public void test() throws Exception {
         File basedir = resources.getBasedir("basic");
-        maven.executeMojo(basedir, "compile");
+        maven.executeMojo(basedir, BpmnMetadataConstantGeneratorMojo.MOJO_GOAL);
         assertFilesPresent(basedir, "target/output.txt");
     }
 
