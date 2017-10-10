@@ -20,7 +20,11 @@ public class BpmnMetadataConstantGeneratorMojo extends CommonsMojo {
     public void execute() throws MojoExecutionException, MojoFailureException {
         BpmMetadataLogger.configure(getLog());
         this.validateField(Constants.CONSTANT_CLASS_POSTFIX);
-        this.validateField(Constants.PACKAGE_NAME);
+        this.validateField(Constants.DEFAULT_ROOT_PACKAGE);
+        this.validateField(Constants.OVERWRITE);
+        this.validateField(Constants.AUTO_COMPILE_AND_COPY_INTO_BUILD_DIRECTORY);
+        this.validateField(Constants.SOURCE_BPMN_FILES_CONSTANT_GENERATED_DIRECTOR);
+        this.validateField(Constants.TEST_BPMN_FILES_CONSTANT_GENERATED_DIRECTOR);
         try {
 
             BpmnResourceScanningProvider bpmnResourceScanningProvider = new BpmnResourceScanningProvider(project.getResources());
@@ -28,8 +32,8 @@ public class BpmnMetadataConstantGeneratorMojo extends CommonsMojo {
 
             BpmnConstantTemplateSupport bpmnConstantTemplateSupport = new BpmnConstantTemplateSupport(constantClassPostfix);
 
-            bpmnConstantTemplateSupport.initializeCreation("target/n", packageName, bpmnResourceScanningProvider.getCandidates());
-            bpmnConstantTemplateSupport.initializeCreation("target/test", packageName, testBpmnResourceScanningProvider.getCandidates());
+            bpmnConstantTemplateSupport.initializeCreation(sourceBpmnFilesConstantGeneratedDirector.getAbsolutePath(), defaultRootPackage, bpmnResourceScanningProvider.getCandidates());
+            bpmnConstantTemplateSupport.initializeCreation(testBpmnFilesConstantGeneratedDirector.getAbsolutePath(), defaultRootPackage, testBpmnResourceScanningProvider.getCandidates());
 
             BpmMetadataLogger.printGeneratedTables(true);
 
