@@ -18,9 +18,8 @@
         <version.springboot>1.5.7.RELEASE</version.springboot>
         <springfox.version>2.7.0</springfox.version>
         <current.build.version>1.0-SNAPSHOT</current.build.version>
-        <mavenVersion>3.5.0</mavenVersion>
         <maven-plugin-plugin.version>3.3</maven-plugin-plugin.version>
-        <maven.api.version>3.0.4</maven.api.version>
+        <mavenVersion>3.2.5</mavenVersion>
         <takari.test.version>2.9.1</takari.test.version>
     </properties>
 
@@ -177,24 +176,29 @@
             <dependency>
                 <groupId>org.apache.maven</groupId>
                 <artifactId>maven-artifact</artifactId>
-                <version>${maven.api.version}</version>
+                <version>${mavenVersion}</version>
                 <scope>provided</scope>
             </dependency>
             <dependency>
                 <groupId>org.apache.maven</groupId>
                 <artifactId>maven-compat</artifactId>
-                <version>${maven.api.version}</version>
+                <version>${mavenVersion}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.maven</groupId>
                 <artifactId>maven-core</artifactId>
-                <version>${maven.api.version}</version>
+                <version>${mavenVersion}</version>
                 <scope>provided</scope>
             </dependency>
             <dependency>
                 <groupId>org.apache.maven</groupId>
                 <artifactId>maven-archiver</artifactId>
-                <version>${maven.api.version}</version>
+                <version>${mavenVersion}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.eclipse.aether</groupId>
+                <artifactId>aether-spi</artifactId>
+                <version>1.1.0</version>
             </dependency>
             <dependency>
                 <groupId>io.takari.maven.plugins</groupId>

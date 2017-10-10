@@ -2,7 +2,7 @@ package bpmntoconstant.generator.annotations.plugin;
 
 import io.takari.maven.testing.TestMavenRuntime;
 import io.takari.maven.testing.TestResources;
-import org.apache.maven.repository.internal.MavenAetherModule;
+import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 
@@ -13,14 +13,18 @@ import static io.takari.maven.testing.TestResources.assertFilesPresent;
 public class BpmnMetadataConstantGeneratorMojoTest {
 
     @Rule
+    public final TestMavenRuntime maven = new TestMavenRuntime();
+    @Rule
     public final TestResources resources = new TestResources();
 
-    @Rule
-    public final TestMavenRuntime maven = new TestMavenRuntime(new MavenAetherModule());
+    @BeforeClass
+    public static void preInit() {
+        System.setProperty("M2_HOME", "/home/devbhuwan/bitdrafter/github/labcart/camunda-bpm-reallife/camunda/bpmn-to-constant-generator/target/apache-maven-3.2.5");
+    }
 
     @Test
     public void test() throws Exception {
-        File basedir = resources.getBasedir("src/test/project/basic");
+        File basedir = resources.getBasedir("basic");
         maven.executeMojo(basedir, "compile");
         assertFilesPresent(basedir, "target/output.txt");
     }

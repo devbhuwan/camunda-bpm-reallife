@@ -43,6 +43,10 @@
             <artifactId>maven-core</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.eclipse.aether</groupId>
+            <artifactId>aether-spi</artifactId>
+        </dependency>
+        <dependency>
             <groupId>io.takari.maven.plugins</groupId>
             <artifactId>takari-plugin-testing</artifactId>
             <scope>test</scope>
