@@ -1,7 +1,7 @@
 package camunda.order.service.controller;
 
 import camunda.order.domain.Order;
-import camunda.order.service.bpmn.metadata.OrderProcessConstants;
+import camunda.order.service.OrderProcessConstants;
 import camunda.order.service.persistance.OrderRepository;
 import org.camunda.bpm.engine.RuntimeService;
 import org.camunda.bpm.engine.runtime.ProcessInstance;

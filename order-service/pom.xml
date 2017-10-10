@@ -101,6 +101,18 @@
                 <groupId>io.github.devbhuwan</groupId>
                 <artifactId>bpmn-to-constant-generator</artifactId>
                 <version>1.0.0</version>
+                <executions>
+                    <execution>
+                        <id>generate</id>
+                        <goals>
+                            <goal>generate-bpmn-constants</goal>
+                        </goals>
+                        <phase>process-sources</phase>
+                    </execution>
+                </executions>
+                <configuration>
+                    <defaultRootPackage>camunda.order.service</defaultRootPackage>
+                </configuration>
             </plugin>
         </plugins>
     </build>
