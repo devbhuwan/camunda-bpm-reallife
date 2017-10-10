@@ -2,7 +2,6 @@ package bpmntoconstant.generator.annotations.plugin;
 
 import io.takari.maven.testing.TestMavenRuntime;
 import io.takari.maven.testing.TestResources;
-import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 
@@ -16,11 +15,6 @@ public class BpmnMetadataConstantGeneratorMojoTest {
     public final TestMavenRuntime maven = new TestMavenRuntime();
     @Rule
     public final TestResources resources = new TestResources();
-
-    @BeforeClass
-    public static void preInit() {
-        System.setProperty("M2_HOME", "/home/devbhuwan/bitdrafter/github/labcart/camunda-bpm-reallife/camunda/bpmn-to-constant-generator/target/apache-maven-3.2.5");
-    }
 
     @Test
     public void test() throws Exception {
