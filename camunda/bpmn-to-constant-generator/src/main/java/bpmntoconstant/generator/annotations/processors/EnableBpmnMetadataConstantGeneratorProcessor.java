@@ -1,5 +1,6 @@
 package bpmntoconstant.generator.annotations.processors;
 
+import bpmntoconstant.generator.annotations.plugin.BpmMetadataLogger;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.TypeSpec;
 import org.camunda.bpm.model.bpmn.Bpmn;
@@ -38,7 +39,8 @@ public class EnableBpmnMetadataConstantGeneratorProcessor {
         try {
             this.resetIdVariableKeysMap();
             BpmnModelInstance bpmnModelInstance = Bpmn.readModelFromFile(resource.getFile());
-            TypeSpec.Builder classSpec = TypeSpec.classBuilder(buildClassName(resource, postfix))
+            String className = buildClassName(resource, postfix);
+            TypeSpec.Builder classSpec = TypeSpec.classBuilder(className)
                     .addModifiers(Modifier.PUBLIC);
             TypeSpec.Builder idsClassSpec = innerClassSpec("Ids");
             TypeSpec.Builder variableKeysClassSpec = innerClassSpec("VariableKeys");
@@ -52,6 +54,7 @@ public class EnableBpmnMetadataConstantGeneratorProcessor {
             classSpec.addType(idsClassSpec.build());
             classSpec.addType(variableKeysClassSpec.build());
             JavaFile javaFile = builder(packageName, classSpec.build()).build();
+            BpmMetadataLogger.addRowGeneratedTable(postfix, className + ".java", "Ok");
             javaFile.writeTo(Paths.get(generatedOutputDirectory));
         } catch (Exception ex) {
             throw new IllegalArgumentException(ex);
