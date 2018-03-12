@@ -1,8 +1,6 @@
 package bpmntoconstant.generator.annotations.processors;
 
-import bpmntoconstant.generator.annotations.EnableBpmnMetadataConstantGenerator;
-import com.google.auto.service.AutoService;
-import com.google.common.base.Throwables;
+import bpmntoconstant.generator.annotations.plugin.BpmMetadataLogger;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.TypeSpec;
 import org.camunda.bpm.model.bpmn.Bpmn;
@@ -11,83 +9,38 @@ import org.camunda.bpm.model.bpmn.instance.*;
 import org.camunda.bpm.model.bpmn.instance.Error;
 import org.camunda.bpm.model.bpmn.instance.Process;
 import org.springframework.core.io.Resource;
-import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
-import javax.annotation.processing.*;
-import javax.lang.model.SourceVersion;
-import javax.lang.model.element.Element;
 import javax.lang.model.element.Modifier;
-import javax.lang.model.element.TypeElement;
-import javax.tools.Diagnostic;
 import java.nio.file.Paths;
 import java.util.*;
 
 import static bpmntoconstant.generator.annotations.processors.JavaSourceFileHelper.buildClassName;
-import static bpmntoconstant.generator.annotations.processors.JavaSourceFileHelper.buildPackageName;
 import static bpmntoconstant.generator.annotations.processors.MetadataSpecHelper.*;
 import static com.squareup.javapoet.JavaFile.builder;
 
 /**
  * @author Bhuwan Prasad Upadhyay
  */
-@SupportedAnnotationTypes({EnableBpmnMetadataConstantGeneratorProcessor.ANNOTATION_ENABLE_BPMN_METADATA_CONSTANT_GENERATOR})
-@SupportedSourceVersion(SourceVersion.RELEASE_8)
-@AutoService(Processor.class)
-@SupportedOptions({"debug", "verify"})
-public class EnableBpmnMetadataConstantGeneratorProcessor extends AbstractProcessor {
+public class EnableBpmnMetadataConstantGeneratorProcessor {
 
-
-    static final String ANNOTATION_ENABLE_BPMN_METADATA_CONSTANT_GENERATOR = "bpmntoconstant.generator.annotations.EnableBpmnMetadataConstantGenerator";
     private static final String IDS = "IDS";
     private static final String VARIABLE_KEYS = "VARIABLE_KEYS";
-    private final PathMatchingResourcePatternResolver resourcePatternResolver = new PathMatchingResourcePatternResolver();
 
     private final Map<String, Set<String>> idVariableKeysMap = new HashMap<>();
-    private final AnnotationProcessorEnvironment annotationProcessorEnvironment;
 
-    public EnableBpmnMetadataConstantGeneratorProcessor() {
-        this.annotationProcessorEnvironment = new AnnotationProcessorEnvironment();
-    }
 
     private void resetIdVariableKeysMap() {
         idVariableKeysMap.put(IDS, new TreeSet<>());
         idVariableKeysMap.put(VARIABLE_KEYS, new TreeSet<>());
     }
 
-    @Override
-    public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
-        this.processImpl(annotations, roundEnv);
-        return false;
-    }
 
-    private void processImpl(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
-        try {
-            Iterator<? extends Element> iterator = roundEnv.getElementsAnnotatedWith(EnableBpmnMetadataConstantGenerator.class)
-                    .iterator();
-            if (iterator.hasNext()) {
-                Element element = iterator.next();
-                final String packageName = buildPackageName(element);
-
-                for (Resource resource : resourcePatternResolver.getResources(annotationProcessorEnvironment.getSourceResourcesDirectory()))
-                    this.generateMetadataConstantSourceFile(annotationProcessorEnvironment.getSourceGeneratedOutputDirectory(), packageName, resource);
-
-                for (Resource resource : resourcePatternResolver.getResources(annotationProcessorEnvironment.getTestSourceResourcesDirectory()))
-                    this.generateMetadataConstantSourceFile(annotationProcessorEnvironment.getTestSourceGeneratedOutputDirectory(), packageName, resource);
-
-            }
-        } catch (Exception ex) {
-            processingEnv.getMessager()
-                    .printMessage(Diagnostic.Kind.ERROR,
-                            ex.getMessage() + "\n\n" + Throwables.getStackTraceAsString(ex));
-        }
-    }
-
-
-    private void generateMetadataConstantSourceFile(String generatedOutputDirectory, String packageName, Resource resource) {
+    public void generateMetadataConstantSourceFile(String generatedOutputDirectory, String packageName, Resource resource, String postfix) {
         try {
             this.resetIdVariableKeysMap();
             BpmnModelInstance bpmnModelInstance = Bpmn.readModelFromFile(resource.getFile());
-            TypeSpec.Builder classSpec = TypeSpec.classBuilder(buildClassName(resource))
+            String className = buildClassName(resource, postfix);
+            TypeSpec.Builder classSpec = TypeSpec.classBuilder(className)
                     .addModifiers(Modifier.PUBLIC);
             TypeSpec.Builder idsClassSpec = innerClassSpec("Ids");
             TypeSpec.Builder variableKeysClassSpec = innerClassSpec("VariableKeys");
@@ -101,11 +54,10 @@ public class EnableBpmnMetadataConstantGeneratorProcessor extends AbstractProces
             classSpec.addType(idsClassSpec.build());
             classSpec.addType(variableKeysClassSpec.build());
             JavaFile javaFile = builder(packageName, classSpec.build()).build();
+            BpmMetadataLogger.addRowGeneratedTable(postfix, className + ".java", "Ok");
             javaFile.writeTo(Paths.get(generatedOutputDirectory));
         } catch (Exception ex) {
-            processingEnv.getMessager()
-                    .printMessage(Diagnostic.Kind.ERROR,
-                            ex.getMessage() + "\n\n" + Throwables.getStackTraceAsString(ex));
+            throw new IllegalArgumentException(ex);
         }
     }
 

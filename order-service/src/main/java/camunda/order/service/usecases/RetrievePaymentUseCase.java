@@ -14,7 +14,8 @@ import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 
-import static camunda.order.service.bpmn.metadata.OrderProcessConstants.Ids.RetrievePaymentCommand;
+import static camunda.order.service.OrderProcessConstants.Ids.RetrievePaymentCommand;
+
 
 @Component
 @Slf4j
